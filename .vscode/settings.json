@@ -1,0 +1,20 @@
+{
+    // Bruk Volta-installert Node 14 til scripts i terminalen
+    "terminal.integrated.env.osx": {
+      "PATH": "${env:HOME}/.volta/bin:${env:PATH}"
+    },
+  
+    // Prettier som format-motor
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+  
+    // ESLint fixer på lagring
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+  
+    // Snu på disable-varsling for useLayoutEffect (valgfritt)
+    "javascript.inlayHints.parameterNames.enabled": "all",
+    "typescript.tsdk": "node_modules/typescript/lib"
+  }
+  

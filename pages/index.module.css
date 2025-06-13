@@ -1,19 +1,44 @@
+/* ==============================
+   Hovedheader styling
+============================== */
 .homepage h1 {
   text-align: center;
   font-size: 48px;
-  color: #aaa;
+  color: #4a4a4a;
   font-family: 'Merriweather', serif;
-  font-weight: normal;
-  margin-bottom: 12px;
+  font-weight: 300;
+  margin-bottom: 16px;
+  line-height: 1.2;
 }
 
-@media(max-width: 640px) {
+/* Responsiv justering */
+@media (max-width: 640px) {
   .homepage h1 {
-      font-size: 6vw;
+    font-size: 8vw;
   }
 }
 
+/* ==============================
+   Container for BeatMachine UI
+============================== */
 .appContainer {
-  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 720px;
   margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  gap: 16px;
+}
+
+/* Ekstra responsiv tilpasning for mindre skjermer */
+@media (max-width: 768px) {
+  .appContainer {
+    max-width: 100%;
+    padding: 16px;
+  }
 }

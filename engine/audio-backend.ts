@@ -18,8 +18,15 @@ export class AudioBackend {
     this.loadBankDescriptor('assets/audio/main.json');
   }
 
+  /**
+   * Initialiserer AudioContext og setter zeroTime umiddelbart.
+   */
   init(context = typeof AudioContext !== 'undefined' ? new AudioContext() : undefined) {
     this._context = context;
+    if (this._context) {
+      this.zeroTime = this._context.currentTime;
+      console.log('🎵 AudioBackend initialized — zeroTime set to:', this.zeroTime);
+    }
   }
 
   get context() {
@@ -27,7 +34,6 @@ export class AudioBackend {
   }
 
   private async loadBank(url: string) {
-    // on Safari we need to use callbacks using decodeAudioData method.
     const req = await fetch(url);
     const response = await req.arrayBuffer();
     this.buffer = await new Promise((resolve, reject) => {
@@ -46,9 +52,13 @@ export class AudioBackend {
     bufferSource.connect(player.createNoteDestination(velocity));
     bufferSource.buffer = this.buffer!;
     const sampleInfo = this.bankDescriptor![sampleName];
+
+    // Setter zeroTime hvis det fortsatt er null (som en fallback)
     if (this.zeroTime === null) {
       this.zeroTime = this.context!.currentTime;
+      console.log('⚠️ Warning: zeroTime was null — setting it now to:', this.zeroTime);
     }
+
     const startTime = this.zeroTime + when;
     bufferSource.start(startTime, sampleInfo[1] / 44100.0, sampleInfo[2] / 44100.0);
     player.registerSample(bufferSource, startTime);
@@ -60,6 +70,7 @@ export class AudioBackend {
 
   getCurrentTime(): number {
     if (this.zeroTime == null) {
+      console.warn('⏱️ Warning: zeroTime is null, returning 0 for current time.');
       return 0;
     }
     return this.context!.currentTime - this.zeroTime;

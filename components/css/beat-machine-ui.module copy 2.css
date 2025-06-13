@@ -1,0 +1,99 @@
+/* ─────────  GENERELT  ───────── */
+.wrapper {
+  font-family: system-ui, sans-serif;
+}
+
+/* Kort/stil */
+.card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 1.1rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  max-width: 480px;
+  margin-bottom: 1rem;
+}
+
+/* Ikonkolonne */
+.icon {
+  flex: 0 0 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: #f3f3f3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  transition: background 0.1s ease;
+}
+.icon.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Høyre panel */
+.panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* nødv. for overflow riktig */
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Instrumentnavn */
+.label {
+  font-weight: 600;
+  margin-right: auto; /* skyv resten mot høyre */
+}
+
+/* Play-knapp */
+.play {
+  width: 46px !important;
+  height: 46px !important;
+  border-radius: 50% !important;
+  background: #111 !important;
+  color: #fff !important;
+}
+.play:hover {
+  background: #222 !important;
+}
+
+/* Tempo */
+.tempo {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 180px;
+}
+.slider {
+  flex: 1;
+}
+.bpm {
+  width: 70px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Beat-indikator */
+.indicator {
+  margin-left: 0.5rem;
+}
+
+/* ─────────  INSTRUMENTLISTE (som før, kun paddings)  ───────── */
+.instrumentList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+  padding: 0.5rem;
+}
+.instrumentTile {
+  min-width: 0;
+}

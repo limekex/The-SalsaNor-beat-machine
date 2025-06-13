@@ -1,11 +1,11 @@
-import { FormControl, IconButton, Select, Slider } from '@material-ui/core';
+import { FormControl, IconButton, Select, Slider } from '@mui/material';
 import classnames from 'classnames';
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import { IInstrument } from '../engine/machine-interfaces';
-import styles from './instrument-tile.module.css';
-import SettingsIcon from '@material-ui/icons/Settings';
-import VolumeIcon from '@material-ui/icons/VolumeUp';
+import styles from './css/instrument-tile.module.css';
+import SettingsIcon from '@mui/icons-material/Settings';
+import VolumeIcon from '@mui/icons-material/VolumeUp';
 
 interface IInstrumentTileProps {
   instrument: IInstrument;

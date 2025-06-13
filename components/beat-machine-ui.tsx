@@ -1,16 +1,21 @@
 import {
   Button,
   ButtonGroup,
+  Container,
   FormControl,
   Grid,
   IconButton,
   InputLabel,
   Select,
   Slider,
+  Stack,
   Typography,
-} from '@material-ui/core';
-import PauseIcon from '@material-ui/icons/Pause';
-import PlayIcon from '@material-ui/icons/PlayArrow';
+} from '@mui/material';
+
+import PauseIcon from '@mui/icons-material/Pause';
+import PlayIcon from '@mui/icons-material/PlayArrow';
+import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import classnames from 'classnames';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react-lite';
@@ -19,7 +24,7 @@ import { IMachine } from '../engine/machine-interfaces';
 import { useBeatEngine } from '../hooks/use-beat-engine';
 import { useWindowListener } from '../hooks/use-window-listener';
 import { BeatIndicator } from './beat-indicator';
-import styles from './beat-machine-ui.module.css';
+import styles from './css/beat-machine-ui.module.css';
 import { InstrumentTile } from './instrument-tile';
 
 export interface IDefaultMachines {
@@ -90,80 +95,105 @@ export const BeatMachineUI = observer(({ machines }: IBeatMachineUIProps) => {
   };
 
   return (
-    <div>
+    <Container className={styles.container}>
       <div className={styles.card}>
-        <Grid container spacing={1} alignItems="center">
-          <Grid item>
+        <Grid container spacing={2}>
+          <Grid size={3} alignContent={'center'} alignItems="center" justifyContent="center">
             <IconButton onClick={playClick} aria-label={engine?.playing ? 'Pause' : 'Play'} style={{ color: '#000' }}>
-              {engine?.playing ? <PauseIcon /> : <PlayIcon />}
+              {engine?.playing ? (
+                <PauseCircleOutlineIcon sx={{ fontSize: 100 }} />
+              ) : (
+                <PlayCircleOutlineIcon sx={{ fontSize: 100 }} />
+              )}
             </IconButton>
           </Grid>
-          <Grid item xs={3}>
-            <Slider
-              min={80}
-              max={250}
-              valueLabelDisplay="auto"
-              value={machine.bpm}
-              aria-labelledby="bpm-slider"
-              onChange={(e, newValue) => (machine.bpm = newValue as number)}
-            />
-          </Grid>
-          <Grid item>
-            <Typography id="bpm-slider" gutterBottom>
-              {machine.bpm} BPM
-            </Typography>
-          </Grid>
-          <Grid item xs={1} />
-          <Grid item>
-            {engine && salsa && merengue && (
-              <ButtonGroup variant="text" color="primary" aria-label="Music style">
-                <Button
-                  onClick={() => setMachine(observable(salsa))}
-                  variant={machine.flavor === 'Salsa' ? 'contained' : undefined}
-                >
-                  Salsa
-                </Button>
-                <Button
-                  onClick={() => setMachine(observable(merengue))}
-                  variant={machine.flavor === 'Merengue' ? 'contained' : undefined}
-                >
-                  Merengue
-                </Button>
-              </ButtonGroup>
-            )}
-          </Grid>
-          <Grid item xs={1} />
-          <Grid item>
-            <FormControl>
-              <InputLabel htmlFor="machine-key-note">Key</InputLabel>
-              <Select
-                native
-                value={machine.keyNote}
-                onChange={(e) => (machine.keyNote = parseInt(e.target.value as string, 10))}
-                inputProps={{
-                  id: 'machine-key-note',
-                }}
+          <Grid size={9}>
+            <Stack direction="row" spacing={1} alignItems="center" marginBottom={1}>
+              <Grid size={12}>
+                {engine && salsa && merengue && (
+                  <ButtonGroup variant="outlined" size="small" primary aria-label="Music style" fullWidth>
+                    <Button
+                      onClick={() => setMachine(observable(salsa))}
+                      variant={machine.flavor === 'Salsa' ? 'contained' : undefined}
+                    >
+                      Salsa
+                    </Button>
+                    <Button
+                      onClick={() => setMachine(observable(merengue))}
+                      variant={machine.flavor === 'Merengue' ? 'contained' : undefined}
+                    >
+                      Merengue
+                    </Button>
+                  </ButtonGroup>
+                )}
+              </Grid>
+            </Stack>
+            <Stack direction="row" spacing={1} justifyContent={'space-between'} marginBottom={1}>
+              <Grid size={3} alignContent={'center'} alignItems="center" justifyContent="center">
+                <Typography>Key:</Typography>
+              </Grid>
+              <Grid size={3}>
+                <FormControl sx={{ m: 0, minWidth: 70 }} size="small">
+                  <Select
+                    native
+                    value={machine.keyNote}
+                    onChange={(e) => (machine.keyNote = parseInt(e.target.value as string, 10))}
+                    inputProps={{
+                      id: 'machine-key-note',
+                    }}
+                  >
+                    <option value="0">C</option>
+                    <option value="1">C#</option>
+                    <option value="2">D</option>
+                    <option value="3">D#</option>
+                    <option value="4">E</option>
+                    <option value="5">F</option>
+                    <option value="6">F#</option>
+                    <option value="7">G</option>
+                    <option value="8">G#</option>
+                    <option value="9">A</option>
+                    <option value="10">A#</option>
+                    <option value="11">B</option>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid size={3} alignContent={'center'} alignItems="center" justifyContent="center">
+                <Typography gutterBottom>Tempo:</Typography>
+              </Grid>
+              <Grid size={3} alignContent={'center'} alignItems="center" justifyContent="center">
+                <Typography id="bpm-slider" gutterBottom>
+                  {machine.bpm} BPM
+                </Typography>
+              </Grid>
+            </Stack>
+
+            <Stack direction="row" spacing={1} justifyContent={'space-between'}>
+              <Grid size={12} className={styles.controls}>
+                <Slider
+                  min={80}
+                  max={250}
+                  valueLabelDisplay="auto"
+                  value={machine.bpm}
+                  aria-labelledby="bpm-slider"
+                  onChange={(e, newValue) => (machine.bpm = newValue as number)}
+                />
+              </Grid>
+            </Stack>
+
+            <Stack direction="row" spacing={1} alignItems="center">
+              <Grid
+                size={12}
+                alignContent={'space-between'}
+                justifyContent={'space-between'}
+                className={styles.controls}
               >
-                <option value="0">C</option>
-                <option value="1">C#</option>
-                <option value="2">D</option>
-                <option value="3">D#</option>
-                <option value="4">E</option>
-                <option value="5">F</option>
-                <option value="6">F#</option>
-                <option value="7">G</option>
-                <option value="8">G#</option>
-                <option value="9">A</option>
-                <option value="10">A#</option>
-                <option value="11">B</option>
-              </Select>
-            </FormControl>
+                <div className={styles.controlsIndicator} alignItems={'space-between'} justifyContent={'space-between'}>
+                  <BeatIndicator currentBeat={beatIndex} max={beatCount} />
+                </div>
+              </Grid>
+            </Stack>
           </Grid>
         </Grid>
-
-        <div className={styles.controlsIndicator}>
-          <BeatIndicator currentBeat={beatIndex} max={beatCount} />
-        </div>
       </div>
 
       <div className={classnames(styles.card, styles.instrumentList)}>
@@ -173,6 +203,6 @@ export const BeatMachineUI = observer(({ machines }: IBeatMachineUIProps) => {
           </div>
         ))}
       </div>
-    </div>
+    </Container>
   );
 });

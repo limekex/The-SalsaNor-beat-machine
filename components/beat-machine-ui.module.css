@@ -5,6 +5,11 @@
   padding: 16px;
   border-radius: 4px;
 }
+.card {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  gap: 16px;
+}
 
 .instrumentList {
   display: flex;
@@ -19,4 +24,19 @@
 
 .instrumentTile {
   margin-bottom: 12px;
+}
+.MuiSlider-root {
+  width: 100% !important;
+  height: 8px !important;
+  background-color: #ccc !important;
+  margin-top: 10px;
+}
+
+.MuiSlider-track {
+  background-color: #3f51b5 !important;
+}
+
+.MuiSlider-thumb {
+  background-color: #3f51b5 !important;
+  border: 2px solid white !important;
 }

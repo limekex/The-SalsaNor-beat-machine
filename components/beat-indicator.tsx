@@ -1,4 +1,4 @@
-import styles from './beat-indicator.module.css';
+import styles from './css/beat-indicator.module.css';
 import classnames from 'classnames';
 
 export interface IBeatIndicatorProps {

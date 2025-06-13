@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 import { resolve } from 'path';
-import { DOMParser } from 'xmldom';
+import { DOMParser } from '@xmldom/xmldom';
 import { MachineXMLLoader } from '../engine/machine-xml-loader.service';
 
 export async function loadMachine(fileName: string) {

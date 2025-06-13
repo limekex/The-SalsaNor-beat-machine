@@ -1,8 +1,8 @@
-import { ServerStyleSheets } from '@material-ui/core';
-import Document, { DocumentContext } from 'next/document';
+import { ServerStyleSheets } from '@mui/styles';
+import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
 
 export default class MyDocument extends Document {
- static async getInitialProps(ctx: DocumentContext) {
+  static async getInitialProps(ctx: DocumentContext) {
     const sheets = new ServerStyleSheets();
     const originalRenderPage = ctx.renderPage;
 
@@ -21,5 +21,20 @@ export default class MyDocument extends Document {
         </>
       ),
     };
+  }
+
+  render() {
+    return (
+      <Html lang="en">
+        <Head>
+          <link href="https://fonts.googleapis.com/css?family=Merriweather:300&display=swap" rel="stylesheet" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
   }
 }

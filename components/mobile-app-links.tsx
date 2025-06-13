@@ -1,5 +1,5 @@
 import { AppStoreIcon } from './app-store-icon';
-import styles from './mobile-app-links.module.css';
+import styles from './css/mobile-app-links.module.css';
 import { PlayStoreIcon } from './plasy-store-icon';
 
 export function MobileAppLinks() {
