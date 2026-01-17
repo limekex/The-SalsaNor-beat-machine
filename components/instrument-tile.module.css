@@ -21,6 +21,7 @@
 .main {
   display: flex;
   position: relative;
+  flex-direction: column;
 }
 
 .bottom {
@@ -30,21 +31,40 @@
 }
 
 .tools {
-  background: rgba(255, 255, 255, 0.5);
-  bottom: 0;
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(4px);
 }
 
 .tools .iconButton {
-  color: black;
-  padding: 8px;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 6px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.tools .iconButton:hover {
+  background: rgba(0, 0, 0, 0.6);
+  transform: scale(1.1);
+}
+
+.tools .iconButton svg {
+  font-size: 18px;
 }
 
 .tools .active {
-  color: blue;
+  color: #00f5ff;
+  background: rgba(0, 245, 255, 0.2);
 }
 
-.instrumentLabel,
-.tools {
+.instrumentLabel {
   opacity: 0;
   transition: opacity ease 0.3s;
   text-align: center;
@@ -53,5 +73,26 @@
 .container:hover .instrumentLabel,
 .container:hover .tools {
   opacity: 1;
+  transform: translateY(0);
+}
+
+.settingsPanel {
+  margin-top: 8px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 

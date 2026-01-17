@@ -75,7 +75,7 @@
   display: grid;
   gap: 1.25rem; // $spacing-5
   
-  @include responsive-grid(3, 2, 1);
+  @include responsive-grid(5, 3, 2);
 }
 
 .instrumentCard {
@@ -83,4 +83,5 @@
   justify-content: center;
   align-items: center;
   min-height: 150px;
+  padding: 0.5rem !important; // Minimal padding så tools kan være i hjørnet
 }

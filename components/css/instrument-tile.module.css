@@ -2,7 +2,11 @@
   display: flex;
   flex-direction: column;
   font-size: 12px;
-  width: 112px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  align-items: center;
+  justify-content: center;
 }
 
 .thumbnail {
@@ -11,7 +15,6 @@
   background-size: contain;
   width: 96px;
   height: 88px;
-  margin-bottom: 8px;
 }
 
 .thumbnail.disabled {
@@ -19,32 +22,62 @@
 }
 
 .main {
-  display: flex;
   position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 88px;
 }
 
 .bottom {
   font-size: 18px;
   height: 40px;
-  width: 64px;
+  width: 100%;
 }
 
 .tools {
-  background: rgba(255, 255, 255, 0.5);
+  position: absolute;
   bottom: 0;
+  right: 0;
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(8px);
+  z-index: 10;
 }
 
 .tools .iconButton {
-  color: black;
-  padding: 8px;
+  color: rgba(255, 255, 255, 0.95);
+  padding: 6px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  min-width: auto;
+  width: 32px;
+  height: 32px;
+}
+
+.tools .iconButton:hover {
+  background: rgba(0, 0, 0, 0.65);
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.tools .iconButton svg {
+  font-size: 18px;
 }
 
 .tools .active {
-  color: blue;
+  color: #00f5ff;
+  background: rgba(0, 245, 255, 0.2);
+  box-shadow: 0 0 12px rgba(0, 245, 255, 0.4);
 }
 
-.instrumentLabel,
-.tools {
+.instrumentLabel {
   opacity: 0;
   transition: opacity ease 0.3s;
   text-align: center;
@@ -53,5 +86,47 @@
 .container:hover .instrumentLabel,
 .container:hover .tools {
   opacity: 1;
+  transform: translateY(0);
+}
+
+.settingsPanel {
+  position: absolute;
+  bottom: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 200px;
+  z-index: 100;
+}
+
+.settingsPanel :global(.MuiSlider-root) {
+  color: #00f5ff;
+}
+
+.settingsPanel :global(.MuiSelect-root) {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.settingsPanel :global(.MuiOutlinedInput-notchedOutline) {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
