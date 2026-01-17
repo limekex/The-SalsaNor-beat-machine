@@ -1,0 +1,179 @@
+// ============================================
+// Color Design Tokens
+// SalsaNor Beat Machine - Glassmorphic Theme
+// ============================================
+
+// ====== Background Gradients ======
+
+$bg-gradient-cosmic: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+$bg-color-dark: #0f0c29;
+$bg-color-mid: #302b63;
+$bg-color-light: #24243e;
+
+// ====== Glass Material Colors ======
+
+// Opacity values for glass surfaces
+$glass-opacity-light: 0.1;
+$glass-opacity-medium: 0.15;
+$glass-opacity-dark: 0.2;
+
+// Backdrop blur levels
+$glass-blur-sm: 10px;
+$glass-blur-md: 20px;
+$glass-blur-lg: 30px;
+
+// Border opacity for glass edges
+$glass-border-opacity-light: 0.15;
+$glass-border-opacity-medium: 0.2;
+$glass-border-opacity-dark: 0.25;
+
+// ====== Accent Colors ======
+
+// Primary Purple
+$color-primary: #667eea;
+$color-primary-light: #8b9fef;
+$color-primary-dark: #4d5ed7;
+
+// Cyan
+$color-cyan: #00f5ff;
+$color-cyan-light: #4dfbff;
+$color-cyan-dark: #00c7d4;
+
+// Pink
+$color-pink: #f093fb;
+$color-pink-light: #f5b5fc;
+$color-pink-dark: #e76af0;
+
+// Purple accent
+$color-purple-accent: #764ba2;
+
+// Gradient accents
+$gradient-primary: linear-gradient(135deg, $color-primary 0%, $color-purple-accent 100%);
+$gradient-cyan-purple: linear-gradient(135deg, $color-cyan 0%, $color-primary 100%);
+$gradient-pink-purple: linear-gradient(135deg, $color-pink 0%, $color-primary 100%);
+
+// ====== Semantic Colors ======
+
+$color-success: #10b981;
+$color-success-light: #34d399;
+$color-success-dark: #059669;
+
+$color-warning: #f59e0b;
+$color-warning-light: #fbbf24;
+$color-warning-dark: #d97706;
+
+$color-error: #ef4444;
+$color-error-light: #f87171;
+$color-error-dark: #dc2626;
+
+$color-info: #3b82f6;
+$color-info-light: #60a5fa;
+$color-info-dark: #2563eb;
+
+// ====== Interactive State Colors ======
+
+// Hover states
+$hover-bg-opacity: 0.25;
+$hover-border-opacity: 0.3;
+$hover-lift: -2px;
+
+// Active states
+$active-bg-opacity: 0.3;
+$active-scale: 0.98;
+
+// Focus states
+$focus-color: $color-cyan;
+$focus-ring-opacity: 0.2;
+$focus-ring-width: 2px;
+$focus-ring-offset: 2px;
+
+// Disabled states
+$disabled-opacity: 0.5;
+
+// ====== Text Colors ======
+
+$text-primary: rgba(255, 255, 255, 0.95);
+$text-secondary: rgba(255, 255, 255, 0.75);
+$text-muted: rgba(255, 255, 255, 0.5);
+$text-disabled: rgba(255, 255, 255, 0.3);
+
+// ====== Border Colors ======
+
+$border-default: rgba(255, 255, 255, 0.15);
+$border-hover: rgba(255, 255, 255, 0.3);
+$border-focus: $color-cyan;
+$border-accent: rgba(102, 126, 234, 0.5);
+
+// ====== Export as CSS Custom Properties ======
+
+:root {
+  // Background
+  --bg-gradient-cosmic: #{$bg-gradient-cosmic};
+  --bg-color-dark: #{$bg-color-dark};
+  --bg-color-mid: #{$bg-color-mid};
+  --bg-color-light: #{$bg-color-light};
+  
+  // Glass material
+  --glass-opacity-light: #{$glass-opacity-light};
+  --glass-opacity-medium: #{$glass-opacity-medium};
+  --glass-opacity-dark: #{$glass-opacity-dark};
+  --glass-blur-sm: #{$glass-blur-sm};
+  --glass-blur-md: #{$glass-blur-md};
+  --glass-blur-lg: #{$glass-blur-lg};
+  --glass-border-opacity-light: #{$glass-border-opacity-light};
+  --glass-border-opacity-medium: #{$glass-border-opacity-medium};
+  --glass-border-opacity-dark: #{$glass-border-opacity-dark};
+  
+  // Accent colors
+  --color-primary: #{$color-primary};
+  --color-primary-light: #{$color-primary-light};
+  --color-primary-dark: #{$color-primary-dark};
+  --color-cyan: #{$color-cyan};
+  --color-cyan-light: #{$color-cyan-light};
+  --color-cyan-dark: #{$color-cyan-dark};
+  --color-pink: #{$color-pink};
+  --color-pink-light: #{$color-pink-light};
+  --color-pink-dark: #{$color-pink-dark};
+  --color-purple-accent: #{$color-purple-accent};
+  
+  // Gradients
+  --gradient-primary: #{$gradient-primary};
+  --gradient-cyan-purple: #{$gradient-cyan-purple};
+  --gradient-pink-purple: #{$gradient-pink-purple};
+  
+  // Semantic colors
+  --color-success: #{$color-success};
+  --color-success-light: #{$color-success-light};
+  --color-success-dark: #{$color-success-dark};
+  --color-warning: #{$color-warning};
+  --color-warning-light: #{$color-warning-light};
+  --color-warning-dark: #{$color-warning-dark};
+  --color-error: #{$color-error};
+  --color-error-light: #{$color-error-light};
+  --color-error-dark: #{$color-error-dark};
+  --color-info: #{$color-info};
+  --color-info-light: #{$color-info-light};
+  --color-info-dark: #{$color-info-dark};
+  
+  // Interactive states
+  --hover-bg-opacity: #{$hover-bg-opacity};
+  --hover-border-opacity: #{$hover-border-opacity};
+  --active-bg-opacity: #{$active-bg-opacity};
+  --focus-color: #{$focus-color};
+  --focus-ring-opacity: #{$focus-ring-opacity};
+  --focus-ring-width: #{$focus-ring-width};
+  --focus-ring-offset: #{$focus-ring-offset};
+  --disabled-opacity: #{$disabled-opacity};
+  
+  // Text colors
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --text-muted: #{$text-muted};
+  --text-disabled: #{$text-disabled};
+  
+  // Border colors
+  --border-default: #{$border-default};
+  --border-hover: #{$border-hover};
+  --border-focus: #{$border-focus};
+  --border-accent: #{$border-accent};
+}

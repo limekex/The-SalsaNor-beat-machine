@@ -1,0 +1,148 @@
+// ============================================
+// Main SCSS Entry Point
+// SalsaNor Beat Machine - Glassmorphic Theme
+// ============================================
+
+// Import order matters!
+// 1. Tokens (design system primitives)
+// 2. Abstracts (functions and mixins)
+// 3. Base styles (to be added in future)
+// 4. Components (to be added in future)
+// 5. Layout (to be added in future)
+
+// ====== 1. Design Tokens ======
+@import 'tokens/colors';
+@import 'tokens/typography';
+@import 'tokens/spacing';
+@import 'tokens/shadows';
+
+// ====== 2. Abstracts ======
+@import 'abstracts/functions';
+@import 'abstracts/mixins';
+
+// ====== 3. Base Styles (Future) ======
+// @import 'base/reset';
+// @import 'base/typography';
+// @import 'base/utilities';
+
+// ====== 4. Components (Future) ======
+// @import 'components/buttons';
+// @import 'components/forms';
+// @import 'components/cards';
+// @import 'components/sequencer';
+// @import 'components/beat-indicator';
+
+// ====== 5. Layout (Future) ======
+// @import 'layout/grid';
+// @import 'layout/containers';
+// @import 'layout/header';
+// @import 'layout/footer';
+
+// ====== Global Base Styles ======
+
+// Apply smooth scrolling
+html {
+  scroll-behavior: smooth;
+  
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
+// Apply cosmic background gradient
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: $bg-gradient-cosmic;
+  background-attachment: fixed;
+  font-family: $font-family-ui;
+  color: $text-primary;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Universal box-sizing
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+// Respect reduced motion preferences
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Focus visible styles for keyboard navigation
+:focus-visible {
+  outline: $focus-ring-width solid $focus-color;
+  outline-offset: $focus-ring-offset;
+}
+
+// Remove default focus outline for mouse users
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+// Improve text rendering
+body,
+input,
+button,
+textarea,
+select {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+// Ensure images are responsive by default
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+// Remove default button styles
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+// Improve form element consistency
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+// Prevent text overflow
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+// Root stacking context for specific components
+#root,
+#__next {
+  isolation: isolate;
+}
