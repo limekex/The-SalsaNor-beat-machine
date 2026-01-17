@@ -1,0 +1,154 @@
+// ============================================
+// Shadow Design Tokens
+// SalsaNor Beat Machine - Glassmorphic Theme
+// ============================================
+
+// ====== Glass Shadow Variants ======
+
+// Small glass shadow
+$shadow-glass-sm: 0 2px 8px rgba(0, 0, 0, 0.1),
+                  0 1px 3px rgba(0, 0, 0, 0.05);
+
+// Medium glass shadow
+$shadow-glass-md: 0 4px 16px rgba(0, 0, 0, 0.2),
+                  0 2px 8px rgba(0, 0, 0, 0.1);
+
+// Large glass shadow
+$shadow-glass-lg: 0 8px 32px rgba(0, 0, 0, 0.3),
+                  0 4px 16px rgba(0, 0, 0, 0.15);
+
+// Extra large glass shadow
+$shadow-glass-xl: 0 12px 48px rgba(0, 0, 0, 0.4),
+                  0 6px 24px rgba(0, 0, 0, 0.2);
+
+// ====== Glow Effects ======
+
+// Cyan glow (for focus, solo states)
+$glow-cyan-sm: 0 0 10px rgba(0, 245, 255, 0.4);
+$glow-cyan-md: 0 0 15px rgba(0, 245, 255, 0.6);
+$glow-cyan-lg: 0 0 20px rgba(0, 245, 255, 0.8);
+$glow-cyan-xl: 0 0 30px rgba(0, 245, 255, 1);
+
+// Purple glow (for primary actions)
+$glow-purple-sm: 0 0 10px rgba(102, 126, 234, 0.4);
+$glow-purple-md: 0 0 15px rgba(102, 126, 234, 0.6);
+$glow-purple-lg: 0 0 20px rgba(102, 126, 234, 0.8);
+$glow-purple-xl: 0 0 30px rgba(102, 126, 234, 1);
+
+// Pink glow (for accents)
+$glow-pink-sm: 0 0 10px rgba(240, 147, 251, 0.4);
+$glow-pink-md: 0 0 15px rgba(240, 147, 251, 0.6);
+$glow-pink-lg: 0 0 20px rgba(240, 147, 251, 0.8);
+$glow-pink-xl: 0 0 30px rgba(240, 147, 251, 1);
+
+// Green glow (for success states)
+$glow-green-sm: 0 0 10px rgba(16, 185, 129, 0.4);
+$glow-green-md: 0 0 15px rgba(16, 185, 129, 0.6);
+$glow-green-lg: 0 0 20px rgba(16, 185, 129, 0.8);
+$glow-green-xl: 0 0 30px rgba(16, 185, 129, 1);
+
+// ====== Standard Shadows (fallback) ======
+
+// Small shadow
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+// Default shadow
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+            0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+// Large shadow
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+            0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+// Extra large shadow
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+            0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+// 2X large shadow
+$shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+// Inner shadow
+$shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+
+// ====== Backdrop Blur Levels ======
+
+$backdrop-blur-sm: blur(4px);
+$backdrop-blur-md: blur(12px);
+$backdrop-blur-lg: blur(20px);
+$backdrop-blur-xl: blur(40px);
+
+// ====== Combined Effects ======
+
+// Glass card with glow on hover
+$shadow-glass-card: $shadow-glass-lg;
+$shadow-glass-card-hover: $shadow-glass-lg, $glow-purple-md;
+
+// Active step in sequencer
+$shadow-step-active: $shadow-glass-sm, $glow-purple-md;
+
+// Playing step animation
+$shadow-step-playing: $shadow-glass-md, $glow-cyan-lg;
+
+// Focus ring shadow
+$shadow-focus: 0 0 0 3px rgba(0, 245, 255, 0.3);
+
+// Button primary shadow
+$shadow-button-primary: 0 4px 15px rgba(102, 126, 234, 0.4);
+$shadow-button-primary-hover: 0 6px 20px rgba(102, 126, 234, 0.5);
+
+// ====== Export as CSS Custom Properties ======
+
+:root {
+  // Glass shadows
+  --shadow-glass-sm: #{$shadow-glass-sm};
+  --shadow-glass-md: #{$shadow-glass-md};
+  --shadow-glass-lg: #{$shadow-glass-lg};
+  --shadow-glass-xl: #{$shadow-glass-xl};
+  
+  // Cyan glows
+  --glow-cyan-sm: #{$glow-cyan-sm};
+  --glow-cyan-md: #{$glow-cyan-md};
+  --glow-cyan-lg: #{$glow-cyan-lg};
+  --glow-cyan-xl: #{$glow-cyan-xl};
+  
+  // Purple glows
+  --glow-purple-sm: #{$glow-purple-sm};
+  --glow-purple-md: #{$glow-purple-md};
+  --glow-purple-lg: #{$glow-purple-lg};
+  --glow-purple-xl: #{$glow-purple-xl};
+  
+  // Pink glows
+  --glow-pink-sm: #{$glow-pink-sm};
+  --glow-pink-md: #{$glow-pink-md};
+  --glow-pink-lg: #{$glow-pink-lg};
+  --glow-pink-xl: #{$glow-pink-xl};
+  
+  // Green glows
+  --glow-green-sm: #{$glow-green-sm};
+  --glow-green-md: #{$glow-green-md};
+  --glow-green-lg: #{$glow-green-lg};
+  --glow-green-xl: #{$glow-green-xl};
+  
+  // Standard shadows
+  --shadow-sm: #{$shadow-sm};
+  --shadow-md: #{$shadow-md};
+  --shadow-lg: #{$shadow-lg};
+  --shadow-xl: #{$shadow-xl};
+  --shadow-2xl: #{$shadow-2xl};
+  --shadow-inner: #{$shadow-inner};
+  
+  // Backdrop blur
+  --backdrop-blur-sm: #{$backdrop-blur-sm};
+  --backdrop-blur-md: #{$backdrop-blur-md};
+  --backdrop-blur-lg: #{$backdrop-blur-lg};
+  --backdrop-blur-xl: #{$backdrop-blur-xl};
+  
+  // Combined effects
+  --shadow-glass-card: #{$shadow-glass-card};
+  --shadow-glass-card-hover: #{$shadow-glass-card-hover};
+  --shadow-step-active: #{$shadow-step-active};
+  --shadow-step-playing: #{$shadow-step-playing};
+  --shadow-focus: #{$shadow-focus};
+  --shadow-button-primary: #{$shadow-button-primary};
+  --shadow-button-primary-hover: #{$shadow-button-primary-hover};
+}

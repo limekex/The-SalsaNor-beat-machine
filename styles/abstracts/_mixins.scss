@@ -1,0 +1,580 @@
+// ============================================
+// SCSS Mixins
+// SalsaNor Beat Machine - Glassmorphic Theme
+// ============================================
+
+@use '../tokens/colors' as *;
+@use '../tokens/spacing' as *;
+@use '../tokens/shadows' as *;
+@use '../tokens/typography' as *;
+@use './functions' as *;
+
+// ====== Glassmorphism Mixins ======
+
+/// Light glass effect
+/// @example scss - Usage
+///   .card { @include glass-light; }
+@mixin glass-light {
+  background: rgba(255, 255, 255, $glass-opacity-light);
+  backdrop-filter: blur($glass-blur-sm);
+  -webkit-backdrop-filter: blur($glass-blur-sm);
+  border: 1px solid rgba(255, 255, 255, $glass-border-opacity-light);
+  box-shadow: $shadow-glass-sm;
+}
+
+/// Medium glass effect (default)
+/// @example scss - Usage
+///   .card { @include glass-medium; }
+@mixin glass-medium {
+  background: rgba(255, 255, 255, $glass-opacity-medium);
+  backdrop-filter: blur($glass-blur-md);
+  -webkit-backdrop-filter: blur($glass-blur-md);
+  border: 1px solid rgba(255, 255, 255, $glass-border-opacity-medium);
+  box-shadow: $shadow-glass-md;
+}
+
+/// Dark glass effect
+/// @example scss - Usage
+///   .card { @include glass-dark; }
+@mixin glass-dark {
+  background: rgba(255, 255, 255, $glass-opacity-dark);
+  backdrop-filter: blur($glass-blur-lg);
+  -webkit-backdrop-filter: blur($glass-blur-lg);
+  border: 1px solid rgba(255, 255, 255, $glass-border-opacity-dark);
+  box-shadow: $shadow-glass-lg;
+}
+
+/// Glass effect with custom parameters
+/// @param {Number} $opacity - Background opacity (0-1)
+/// @param {String} $blur - Backdrop blur amount
+/// @param {Number} $border-opacity - Border opacity (0-1)
+@mixin glass-custom($opacity: 0.15, $blur: 20px, $border-opacity: 0.2) {
+  background: rgba(255, 255, 255, $opacity);
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  border: 1px solid rgba(255, 255, 255, $border-opacity);
+  box-shadow: $shadow-glass-md;
+}
+
+// ====== Responsive Breakpoint Mixins ======
+
+/// Respond to breakpoint
+/// @param {String} $breakpoint - The breakpoint name
+/// @example scss - Usage
+///   @include respond-to('tablet') { display: grid; }
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint `#{$breakpoint}` not found.";
+  }
+}
+
+/// Mobile first (default styles, no media query needed)
+@mixin mobile {
+  @content;
+}
+
+/// Tablet and up
+@mixin tablet {
+  @include respond-to('tablet') {
+    @content;
+  }
+}
+
+/// Desktop and up
+@mixin desktop {
+  @include respond-to('desktop') {
+    @content;
+  }
+}
+
+/// Wide screens
+@mixin wide {
+  @include respond-to('wide') {
+    @content;
+  }
+}
+
+/// Mobile only (max-width)
+@mixin mobile-only {
+  @media (max-width: #{map-get($breakpoints, 'tablet') - 1px}) {
+    @content;
+  }
+}
+
+/// Tablet only (between mobile and desktop)
+@mixin tablet-only {
+  @media (min-width: map-get($breakpoints, 'tablet')) and (max-width: #{map-get($breakpoints, 'desktop') - 1px}) {
+    @content;
+  }
+}
+
+// ====== Focus State Mixins ======
+
+/// Modern focus visible state with cyan glow
+/// @example scss - Usage
+///   button { @include focus-visible; }
+@mixin focus-visible {
+  &:focus-visible {
+    outline: $focus-ring-width solid $focus-color;
+    outline-offset: $focus-ring-offset;
+    box-shadow: 0 0 0 4px rgba(0, 245, 255, $focus-ring-opacity);
+  }
+}
+
+/// Legacy focus state (for older browsers)
+@mixin focus-legacy {
+  &:focus {
+    outline: $focus-ring-width solid $focus-color;
+    outline-offset: $focus-ring-offset;
+  }
+}
+
+/// Remove default focus outline
+@mixin no-focus-outline {
+  &:focus {
+    outline: none;
+  }
+}
+
+// ====== Hover Effect Mixins ======
+
+/// Lift effect on hover
+/// @param {String} $distance - Distance to lift (default: -2px)
+/// @example scss - Usage
+///   .card { @include hover-lift; }
+@mixin hover-lift($distance: $hover-lift) {
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    transform: translateY($distance);
+  }
+}
+
+/// Glow effect on hover
+/// @param {Color} $color - The glow color
+/// @param {String} $size - Glow size (sm, md, lg, xl)
+/// @example scss - Usage
+///   .button { @include hover-glow($color-primary, 'md'); }
+@mixin hover-glow($color, $size: 'md') {
+  transition: box-shadow 0.2s ease;
+  
+  &:hover {
+    @if $size == 'sm' {
+      box-shadow: 0 0 10px rgba($color, 0.6);
+    } @else if $size == 'md' {
+      box-shadow: 0 0 15px rgba($color, 0.7);
+    } @else if $size == 'lg' {
+      box-shadow: 0 0 20px rgba($color, 0.8);
+    } @else if $size == 'xl' {
+      box-shadow: 0 0 30px rgba($color, 0.9);
+    }
+  }
+}
+
+/// Scale effect on hover
+/// @param {Number} $scale - Scale factor (default: 1.05)
+@mixin hover-scale($scale: 1.05) {
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    transform: scale($scale);
+  }
+}
+
+/// Brighten effect on hover
+@mixin hover-brighten {
+  transition: filter 0.2s ease;
+  
+  &:hover {
+    filter: brightness(1.1);
+  }
+}
+
+// ====== Animation Mixins ======
+
+/// Smooth transition with custom properties
+/// @param {String} $properties - CSS properties to transition
+/// @param {String} $duration - Transition duration (default: 0.3s)
+/// @param {String} $easing - Timing function (default: ease)
+/// @example scss - Usage
+///   @include smooth-transition(all, 0.3s, ease);
+@mixin smooth-transition($properties: all, $duration: 0.3s, $easing: cubic-bezier(0.4, 0, 0.2, 1)) {
+  transition: $properties $duration $easing;
+}
+
+/// Pulse animation
+/// @param {String} $duration - Animation duration
+@mixin pulse-animation($duration: 0.3s) {
+  animation: pulse $duration ease-out;
+  
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+}
+
+/// Fade in animation
+/// @param {String} $duration - Animation duration
+@mixin fade-in($duration: 0.3s) {
+  animation: fadeIn $duration ease-in;
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
+
+/// Slide in from bottom
+/// @param {String} $duration - Animation duration
+@mixin slide-in-bottom($duration: 0.4s) {
+  animation: slideInBottom $duration ease-out;
+  
+  @keyframes slideInBottom {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+// ====== Typography Mixins ======
+
+/// Heading 1 style
+@mixin heading-1 {
+  font-family: $font-family-display;
+  font-size: $font-size-h1;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-heading;
+  letter-spacing: $letter-spacing-tight;
+  color: $text-primary;
+}
+
+/// Heading 2 style
+@mixin heading-2 {
+  font-family: $font-family-ui;
+  font-size: $font-size-h2;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-heading;
+  letter-spacing: $letter-spacing-tight;
+  color: $text-primary;
+}
+
+/// Heading 3 style
+@mixin heading-3 {
+  font-family: $font-family-ui;
+  font-size: $font-size-h3;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-snug;
+  color: $text-primary;
+}
+
+/// Body text style
+@mixin body-text {
+  font-family: $font-family-ui;
+  font-size: $font-size-body;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-body;
+  color: $text-secondary;
+}
+
+/// Small text style
+@mixin small-text {
+  font-family: $font-family-ui;
+  font-size: $font-size-small;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-normal;
+  color: $text-muted;
+}
+
+/// Monospace text style
+@mixin mono-text {
+  font-family: $font-family-mono;
+  font-size: $font-size-body-small;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-normal;
+}
+
+// ====== Utility Mixins ======
+
+/// Center content with flexbox
+/// @example scss - Usage
+///   .container { @include flex-center; }
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/// Absolute center positioning
+/// @example scss - Usage
+///   .modal { @include absolute-center; }
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/// Truncate text with ellipsis
+/// @example scss - Usage
+///   .label { @include truncate-text; }
+@mixin truncate-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/// Multi-line text truncation
+/// @param {Number} $lines - Number of lines to show
+@mixin line-clamp($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/// Clearfix for floats
+@mixin clearfix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+/// Aspect ratio box
+/// @param {Number} $width - Width ratio
+/// @param {Number} $height - Height ratio
+@mixin aspect-ratio($width: 1, $height: 1) {
+  aspect-ratio: $width / $height;
+  
+  @supports not (aspect-ratio: 1 / 1) {
+    &::before {
+      content: '';
+      display: block;
+      padding-top: percentage($height / $width);
+    }
+  }
+}
+
+// ====== Grid Layout Mixins ======
+
+/// Responsive grid layout
+/// @param {Number} $columns-desktop - Columns on desktop
+/// @param {Number} $columns-tablet - Columns on tablet
+/// @param {Number} $columns-mobile - Columns on mobile
+/// @example scss - Usage
+///   @include responsive-grid(3, 2, 1);
+@mixin responsive-grid($columns-desktop: 3, $columns-tablet: 2, $columns-mobile: 1) {
+  display: grid;
+  gap: $grid-gap-mobile;
+  grid-template-columns: repeat($columns-mobile, 1fr);
+  
+  @include tablet {
+    gap: $grid-gap;
+    grid-template-columns: repeat($columns-tablet, 1fr);
+  }
+  
+  @include desktop {
+    grid-template-columns: repeat($columns-desktop, 1fr);
+  }
+}
+
+/// Auto-fit grid with minimum column width
+/// @param {String} $min-width - Minimum column width
+/// @param {String} $gap - Gap between items
+@mixin auto-fit-grid($min-width: 280px, $gap: $grid-gap) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
+  gap: $gap;
+}
+
+// ====== Accessibility Mixins ======
+
+/// Screen reader only (visually hidden but accessible)
+/// @example scss - Usage
+///   .sr-only { @include sr-only; }
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/// Undo screen reader only
+@mixin not-sr-only {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/// Respect reduced motion preference
+/// @example scss - Usage
+///   @include reduced-motion { animation: none; }
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+/// High contrast mode support
+@mixin high-contrast {
+  @media (prefers-contrast: high) {
+    @content;
+  }
+}
+
+// ====== Button Mixins ======
+
+/// Base button styles
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: spacing(3) spacing(6);
+  border: none;
+  border-radius: $radius-md;
+  font-family: $font-family-ui;
+  font-size: $font-size-body;
+  font-weight: $font-weight-semibold;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  @include smooth-transition(all, 0.2s, ease);
+  
+  &:disabled {
+    opacity: $disabled-opacity;
+    cursor: not-allowed;
+  }
+}
+
+/// Primary button style
+@mixin button-primary {
+  @include button-base;
+  background: $gradient-primary;
+  color: white;
+  box-shadow: $shadow-button-primary;
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: $shadow-button-primary-hover;
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+  
+  @include focus-visible;
+}
+
+/// Ghost button style
+@mixin button-ghost {
+  @include button-base;
+  @include glass-light;
+  color: $text-primary;
+  
+  &:hover:not(:disabled) {
+    background: rgba(255, 255, 255, $hover-bg-opacity);
+  }
+  
+  @include focus-visible;
+}
+
+/// Icon button style
+@mixin button-icon {
+  @include flex-center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: spacing(2);
+  border: none;
+  border-radius: $radius-md;
+  background: rgba(255, 255, 255, 0.1);
+  color: $text-primary;
+  cursor: pointer;
+  @include smooth-transition(all, 0.2s, ease);
+  
+  &:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  &:disabled {
+    opacity: $disabled-opacity;
+    cursor: not-allowed;
+  }
+  
+  @include focus-visible;
+}
+
+// ====== Form Element Mixins ======
+
+/// Input field base styles
+@mixin input-base {
+  width: 100%;
+  padding: spacing(3) spacing(4);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  font-family: $font-family-ui;
+  font-size: $font-size-body;
+  color: $text-primary;
+  @include smooth-transition(all, 0.2s, ease);
+  
+  &::placeholder {
+    color: $text-muted;
+  }
+  
+  &:hover:not(:disabled) {
+    border-color: $border-hover;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: $border-focus;
+    box-shadow: $shadow-focus;
+  }
+  
+  &:disabled {
+    opacity: $disabled-opacity;
+    cursor: not-allowed;
+  }
+}
+
+// ====== Card Mixins ======
+
+/// Card base styles
+@mixin card {
+  @include glass-medium;
+  padding: spacing(6);
+  border-radius: $radius-lg;
+  @include smooth-transition(all, 0.3s, ease);
+}
+
+/// Interactive card with hover effect
+@mixin card-interactive {
+  @include card;
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-glass-card-hover;
+  }
+}

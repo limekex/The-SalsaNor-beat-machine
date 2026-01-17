@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SalsaNor Beat Machine - UI Design System Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============================================ */
+        /* CSS Reset & Base Styles */
+        /* ============================================ */
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+        }
+        
+        body {
+            min-height: 100vh;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            background-attachment: fixed;
+            color: rgba(255, 255, 255, 0.95);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding: 2rem 1rem;
+        }
+        
+        /* ============================================ */
+        /* Container & Layout */
+        /* ============================================ */
+        
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        
+        /* ============================================ */
+        /* Header */
+        /* ============================================ */
+        
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .header h1 {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: clamp(2rem, 4vw + 1rem, 3.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #00f5ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p {
+            font-size: clamp(0.875rem, 0.5vw + 0.5rem, 1rem);
+            color: rgba(255, 255, 255, 0.75);
+        }
+        
+        /* ============================================ */
+        /* Glass Card Styles */
+        /* ============================================ */
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .glass-card-light {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        /* ============================================ */
+        /* Control Bar */
+        /* ============================================ */
+        
+        .control-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+        
+        .control-buttons {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        
+        /* ============================================ */
+        /* Buttons */
+        /* ============================================ */
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(0.875rem, 0.5vw + 0.5rem, 1rem);
+            font-weight: 600;
+            line-height: 1;
+            text-decoration: none;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+        
+        .btn-primary:active:not(:disabled) {
+            transform: translateY(0);
+        }
+        
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        .btn-ghost:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn:focus-visible {
+            outline: 2px solid #00f5ff;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 4px rgba(0, 245, 255, 0.2);
+        }
+        
+        /* ============================================ */
+        /* BPM Control */
+        /* ============================================ */
+        
+        .bpm-control {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+            min-width: 200px;
+            max-width: 400px;
+        }
+        
+        .bpm-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.875rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .bpm-slider {
+            flex: 1;
+            height: 0.375rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        
+        .bpm-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 1rem;
+            height: 1rem;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 245, 255, 0.6);
+            transition: all 0.2s ease;
+        }
+        
+        .bpm-slider::-webkit-slider-thumb:hover {
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.8);
+            transform: scale(1.1);
+        }
+        
+        .bpm-slider::-moz-range-thumb {
+            width: 1rem;
+            height: 1rem;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 245, 255, 0.6);
+            transition: all 0.2s ease;
+        }
+        
+        .bpm-slider::-moz-range-thumb:hover {
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.8);
+            transform: scale(1.1);
+        }
+        
+        /* ============================================ */
+        /* Beat Indicator */
+        /* ============================================ */
+        
+        .beat-indicator {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+        }
+        
+        .beat-dot {
+            width: 0.75rem;
+            height: 0.75rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .beat-dot.active {
+            background: #00f5ff;
+            box-shadow: 0 0 15px #00f5ff;
+            transform: scale(1.2);
+        }
+        
+        /* ============================================ */
+        /* Instrument Grid */
+        /* ============================================ */
+        
+        .instrument-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        @media (min-width: 640px) {
+            .instrument-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .instrument-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* ============================================ */
+        /* Instrument Card */
+        /* ============================================ */
+        
+        .instrument-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .instrument-card.muted {
+            opacity: 0.5;
+        }
+        
+        .instrument-card.solo {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 245, 255, 0.6);
+            border-color: #00f5ff;
+        }
+        
+        .instrument-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .instrument-title {
+            font-size: clamp(1.125rem, 1vw + 0.5rem, 1.25rem);
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        .instrument-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .icon-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            padding: 0.375rem;
+            border: none;
+            border-radius: 0.375rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.95);
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.875rem;
+        }
+        
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .icon-btn.active {
+            background: #00f5ff;
+            color: #0f0c29;
+        }
+        
+        .icon-btn:focus-visible {
+            outline: 2px solid #00f5ff;
+            outline-offset: 2px;
+        }
+        
+        /* ============================================ */
+        /* Step Sequencer Grid */
+        /* ============================================ */
+        
+        .sequencer-grid {
+            display: grid;
+            grid-template-columns: repeat(16, 1fr);
+            gap: 0.375rem;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 640px) {
+            .sequencer-grid {
+                grid-template-columns: repeat(8, 1fr);
+            }
+        }
+        
+        .step {
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .step:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .step.active {
+            background: #667eea;
+            border-color: #667eea;
+            box-shadow: 0 0 12px rgba(102, 126, 234, 0.8);
+        }
+        
+        .step.playing {
+            animation: stepPulse 0.3s ease-out;
+        }
+        
+        @keyframes stepPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        
+        /* ============================================ */
+        /* Sliders */
+        /* ============================================ */
+        
+        .slider-group {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .slider-control {
+            flex: 1;
+        }
+        
+        .slider-label {
+            display: block;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 0.5rem;
+        }
+        
+        .slider {
+            width: 100%;
+            height: 0.375rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 0.875rem;
+            height: 0.875rem;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(240, 147, 251, 0.6);
+            transition: all 0.2s ease;
+        }
+        
+        .slider::-webkit-slider-thumb:hover {
+            box-shadow: 0 0 12px rgba(240, 147, 251, 0.8);
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 0.875rem;
+            height: 0.875rem;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(240, 147, 251, 0.6);
+            transition: all 0.2s ease;
+        }
+        
+        .slider::-moz-range-thumb:hover {
+            box-shadow: 0 0 12px rgba(240, 147, 251, 0.8);
+        }
+        
+        /* ============================================ */
+        /* Footer */
+        /* ============================================ */
+        
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.875rem;
+        }
+        
+        .footer a {
+            color: #00f5ff;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .footer a:hover {
+            color: #4dfbff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>SalsaNor Beat Machine</h1>
+            <p>Glassmorphic UI Design System Demo</p>
+        </header>
+        
+        <!-- Control Bar -->
+        <div class="glass-card control-bar">
+            <div class="control-buttons">
+                <button class="btn btn-primary" id="playBtn" aria-label="Play">
+                    <span id="playIcon">▶</span> Play
+                </button>
+                <button class="btn btn-ghost" id="pauseBtn" aria-label="Pause">⏸ Pause</button>
+                <button class="btn btn-ghost" id="stopBtn" aria-label="Stop">⏹ Stop</button>
+                <button class="btn btn-ghost" id="clearBtn" aria-label="Clear all beats">🗑 Clear</button>
+            </div>
+            
+            <div class="bpm-control">
+                <label for="bpmSlider" class="bpm-label">BPM: <span id="bpmValue">120</span></label>
+                <input 
+                    type="range" 
+                    id="bpmSlider" 
+                    class="bpm-slider" 
+                    min="60" 
+                    max="200" 
+                    value="120"
+                    aria-label="BPM slider"
+                    aria-valuemin="60"
+                    aria-valuemax="200"
+                    aria-valuenow="120"
+                >
+            </div>
+        </div>
+        
+        <!-- Beat Indicator -->
+        <div class="glass-card-light beat-indicator" role="status" aria-label="Beat indicator">
+            <div class="beat-dot" data-beat="0"></div>
+            <div class="beat-dot" data-beat="1"></div>
+            <div class="beat-dot" data-beat="2"></div>
+            <div class="beat-dot" data-beat="3"></div>
+            <div class="beat-dot" data-beat="4"></div>
+            <div class="beat-dot" data-beat="5"></div>
+            <div class="beat-dot" data-beat="6"></div>
+            <div class="beat-dot" data-beat="7"></div>
+        </div>
+        
+        <!-- Instrument Grid -->
+        <div class="instrument-grid">
+            <!-- Drums -->
+            <div class="glass-card instrument-card" data-instrument="drums">
+                <div class="instrument-header">
+                    <h3 class="instrument-title">🥁 Drums</h3>
+                    <div class="instrument-controls">
+                        <button class="icon-btn solo-btn" title="Solo" aria-label="Solo drums">S</button>
+                        <button class="icon-btn mute-btn" title="Mute" aria-label="Mute drums">M</button>
+                        <button class="icon-btn" title="Settings" aria-label="Drums settings">⚙</button>
+                    </div>
+                </div>
+                <div class="sequencer-grid" role="grid" aria-label="Drums step sequencer"></div>
+                <div class="slider-group">
+                    <div class="slider-control">
+                        <label for="drumsVolume" class="slider-label">Volume</label>
+                        <input type="range" id="drumsVolume" class="slider" min="0" max="100" value="80" aria-label="Drums volume">
+                    </div>
+                    <div class="slider-control">
+                        <label for="drumsPan" class="slider-label">Pan</label>
+                        <input type="range" id="drumsPan" class="slider" min="-100" max="100" value="0" aria-label="Drums pan">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bass -->
+            <div class="glass-card instrument-card" data-instrument="bass">
+                <div class="instrument-header">
+                    <h3 class="instrument-title">🎸 Bass</h3>
+                    <div class="instrument-controls">
+                        <button class="icon-btn solo-btn" title="Solo" aria-label="Solo bass">S</button>
+                        <button class="icon-btn mute-btn" title="Mute" aria-label="Mute bass">M</button>
+                        <button class="icon-btn" title="Settings" aria-label="Bass settings">⚙</button>
+                    </div>
+                </div>
+                <div class="sequencer-grid" role="grid" aria-label="Bass step sequencer"></div>
+                <div class="slider-group">
+                    <div class="slider-control">
+                        <label for="bassVolume" class="slider-label">Volume</label>
+                        <input type="range" id="bassVolume" class="slider" min="0" max="100" value="75" aria-label="Bass volume">
+                    </div>
+                    <div class="slider-control">
+                        <label for="bassPan" class="slider-label">Pan</label>
+                        <input type="range" id="bassPan" class="slider" min="-100" max="100" value="-20" aria-label="Bass pan">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Piano -->
+            <div class="glass-card instrument-card" data-instrument="piano">
+                <div class="instrument-header">
+                    <h3 class="instrument-title">🎹 Piano</h3>
+                    <div class="instrument-controls">
+                        <button class="icon-btn solo-btn" title="Solo" aria-label="Solo piano">S</button>
+                        <button class="icon-btn mute-btn" title="Mute" aria-label="Mute piano">M</button>
+                        <button class="icon-btn" title="Settings" aria-label="Piano settings">⚙</button>
+                    </div>
+                </div>
+                <div class="sequencer-grid" role="grid" aria-label="Piano step sequencer"></div>
+                <div class="slider-group">
+                    <div class="slider-control">
+                        <label for="pianoVolume" class="slider-label">Volume</label>
+                        <input type="range" id="pianoVolume" class="slider" min="0" max="100" value="70" aria-label="Piano volume">
+                    </div>
+                    <div class="slider-control">
+                        <label for="pianoPan" class="slider-label">Pan</label>
+                        <input type="range" id="pianoPan" class="slider" min="-100" max="100" value="20" aria-label="Piano pan">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Synth -->
+            <div class="glass-card instrument-card" data-instrument="synth">
+                <div class="instrument-header">
+                    <h3 class="instrument-title">🎛 Synth</h3>
+                    <div class="instrument-controls">
+                        <button class="icon-btn solo-btn" title="Solo" aria-label="Solo synth">S</button>
+                        <button class="icon-btn mute-btn" title="Mute" aria-label="Mute synth">M</button>
+                        <button class="icon-btn" title="Settings" aria-label="Synth settings">⚙</button>
+                    </div>
+                </div>
+                <div class="sequencer-grid" role="grid" aria-label="Synth step sequencer"></div>
+                <div class="slider-group">
+                    <div class="slider-control">
+                        <label for="synthVolume" class="slider-label">Volume</label>
+                        <input type="range" id="synthVolume" class="slider" min="0" max="100" value="65" aria-label="Synth volume">
+                    </div>
+                    <div class="slider-control">
+                        <label for="synthPan" class="slider-label">Pan</label>
+                        <input type="range" id="synthPan" class="slider" min="-100" max="100" value="0" aria-label="Synth pan">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Percussion -->
+            <div class="glass-card instrument-card" data-instrument="percussion">
+                <div class="instrument-header">
+                    <h3 class="instrument-title">🪘 Percussion</h3>
+                    <div class="instrument-controls">
+                        <button class="icon-btn solo-btn" title="Solo" aria-label="Solo percussion">S</button>
+                        <button class="icon-btn mute-btn" title="Mute" aria-label="Mute percussion">M</button>
+                        <button class="icon-btn" title="Settings" aria-label="Percussion settings">⚙</button>
+                    </div>
+                </div>
+                <div class="sequencer-grid" role="grid" aria-label="Percussion step sequencer"></div>
+                <div class="slider-group">
+                    <div class="slider-control">
+                        <label for="percussionVolume" class="slider-label">Volume</label>
+                        <input type="range" id="percussionVolume" class="slider" min="0" max="100" value="85" aria-label="Percussion volume">
+                    </div>
+                    <div class="slider-control">
+                        <label for="percussionPan" class="slider-label">Pan</label>
+                        <input type="range" id="percussionPan" class="slider" min="-100" max="100" value="10" aria-label="Percussion pan">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trumpet -->
+            <div class="glass-card instrument-card" data-instrument="trumpet">
+                <div class="instrument-header">
+                    <h3 class="instrument-title">🎺 Trumpet</h3>
+                    <div class="instrument-controls">
+                        <button class="icon-btn solo-btn" title="Solo" aria-label="Solo trumpet">S</button>
+                        <button class="icon-btn mute-btn" title="Mute" aria-label="Mute trumpet">M</button>
+                        <button class="icon-btn" title="Settings" aria-label="Trumpet settings">⚙</button>
+                    </div>
+                </div>
+                <div class="sequencer-grid" role="grid" aria-label="Trumpet step sequencer"></div>
+                <div class="slider-group">
+                    <div class="slider-control">
+                        <label for="trumpetVolume" class="slider-label">Volume</label>
+                        <input type="range" id="trumpetVolume" class="slider" min="0" max="100" value="60" aria-label="Trumpet volume">
+                    </div>
+                    <div class="slider-control">
+                        <label for="trumpetPan" class="slider-label">Pan</label>
+                        <input type="range" id="trumpetPan" class="slider" min="-100" max="100" value="-10" aria-label="Trumpet pan">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="footer glass-card-light">
+            <p>
+                SalsaNor Beat Machine - Glassmorphic UI Design System Demo<br>
+                Built with ❤️ for the <a href="https://github.com/limekex/The-SalsaNor-beat-machine" target="_blank">SalsaNor Project</a>
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        // ============================================
+        // Console Welcome Message
+        // ============================================
+        console.log('%c🎵 SalsaNor Beat Machine 🎵', 'color: #00f5ff; font-size: 24px; font-weight: bold;');
+        console.log('%cGlassmorphic UI Design System Demo', 'color: #667eea; font-size: 16px;');
+        console.log('Created with love for music and design ❤️');
+        
+        // ============================================
+        // State Management
+        // ============================================
+        const state = {
+            isPlaying: false,
+            bpm: 120,
+            currentStep: 0,
+            steps: 16,
+            mobileSteps: 8,
+            intervalId: null,
+            instruments: {}
+        };
+        
+        // ============================================
+        // Initialize Sequencer Grids
+        // ============================================
+        function initSequencerGrids() {
+            const grids = document.querySelectorAll('.sequencer-grid');
+            const isMobile = window.innerWidth < 640;
+            const numSteps = isMobile ? state.mobileSteps : state.steps;
+            
+            grids.forEach((grid, instrumentIndex) => {
+                grid.innerHTML = '';
+                const instrumentName = grid.closest('.instrument-card').dataset.instrument;
+                state.instruments[instrumentName] = new Array(state.steps).fill(false);
+                
+                for (let i = 0; i < numSteps; i++) {
+                    const step = document.createElement('div');
+                    step.className = 'step';
+                    step.dataset.step = i;
+                    step.setAttribute('role', 'gridcell');
+                    step.setAttribute('aria-label', `Step ${i + 1}`);
+                    step.addEventListener('click', () => toggleStep(instrumentName, i));
+                    grid.appendChild(step);
+                }
+            });
+        }
+        
+        // ============================================
+        // Toggle Step
+        // ============================================
+        function toggleStep(instrument, stepIndex) {
+            state.instruments[instrument][stepIndex] = !state.instruments[instrument][stepIndex];
+            updateStepVisual(instrument, stepIndex);
+        }
+        
+        function updateStepVisual(instrument, stepIndex) {
+            const card = document.querySelector(`[data-instrument="${instrument}"]`);
+            const steps = card.querySelectorAll('.step');
+            const isMobile = window.innerWidth < 640;
+            
+            if (isMobile && stepIndex >= state.mobileSteps) {
+                return; // Don't update steps that aren't visible on mobile
+            }
+            
+            const step = steps[stepIndex];
+            if (step) {
+                step.classList.toggle('active', state.instruments[instrument][stepIndex]);
+            }
+        }
+        
+        // ============================================
+        // Play/Pause/Stop Controls
+        // ============================================
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const playIcon = document.getElementById('playIcon');
+        
+        playBtn.addEventListener('click', () => {
+            if (!state.isPlaying) {
+                startPlaying();
+            }
+        });
+        
+        pauseBtn.addEventListener('click', () => {
+            if (state.isPlaying) {
+                pausePlaying();
+            }
+        });
+        
+        stopBtn.addEventListener('click', () => {
+            stopPlaying();
+        });
+        
+        clearBtn.addEventListener('click', () => {
+            clearAllBeats();
+        });
+        
+        function startPlaying() {
+            state.isPlaying = true;
+            playIcon.textContent = '⏸';
+            playBtn.textContent = '⏸ Pause';
+            
+            const stepDuration = 60000 / state.bpm / 4; // Quarter note duration
+            
+            state.intervalId = setInterval(() => {
+                playStep();
+                state.currentStep = (state.currentStep + 1) % state.steps;
+            }, stepDuration);
+        }
+        
+        function pausePlaying() {
+            state.isPlaying = false;
+            playIcon.textContent = '▶';
+            playBtn.textContent = '▶ Play';
+            clearInterval(state.intervalId);
+        }
+        
+        function stopPlaying() {
+            state.isPlaying = false;
+            playIcon.textContent = '▶';
+            playBtn.textContent = '▶ Play';
+            clearInterval(state.intervalId);
+            state.currentStep = 0;
+            updateBeatIndicator();
+        }
+        
+        function playStep() {
+            const isMobile = window.innerWidth < 640;
+            const visibleStep = isMobile ? state.currentStep % state.mobileSteps : state.currentStep;
+            
+            // Update beat indicator
+            updateBeatIndicator();
+            
+            // Animate active steps
+            document.querySelectorAll('.sequencer-grid').forEach(grid => {
+                const instrumentName = grid.closest('.instrument-card').dataset.instrument;
+                const steps = grid.querySelectorAll('.step');
+                
+                steps.forEach((step, index) => {
+                    step.classList.remove('playing');
+                });
+                
+                if (state.instruments[instrumentName][state.currentStep]) {
+                    const activeStep = steps[visibleStep];
+                    if (activeStep) {
+                        activeStep.classList.add('playing');
+                    }
+                }
+            });
+        }
+        
+        function updateBeatIndicator() {
+            const beatDots = document.querySelectorAll('.beat-dot');
+            beatDots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === state.currentStep % 8);
+            });
+        }
+        
+        function clearAllBeats() {
+            Object.keys(state.instruments).forEach(instrument => {
+                state.instruments[instrument].fill(false);
+                const card = document.querySelector(`[data-instrument="${instrument}"]`);
+                const steps = card.querySelectorAll('.step');
+                steps.forEach(step => step.classList.remove('active'));
+            });
+        }
+        
+        // ============================================
+        // BPM Slider
+        // ============================================
+        const bpmSlider = document.getElementById('bpmSlider');
+        const bpmValue = document.getElementById('bpmValue');
+        
+        bpmSlider.addEventListener('input', (e) => {
+            state.bpm = parseInt(e.target.value);
+            bpmValue.textContent = state.bpm;
+            bpmSlider.setAttribute('aria-valuenow', state.bpm);
+            
+            if (state.isPlaying) {
+                pausePlaying();
+                startPlaying();
+            }
+        });
+        
+        // ============================================
+        // Mute/Solo Controls
+        // ============================================
+        document.querySelectorAll('.mute-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const card = e.target.closest('.instrument-card');
+                card.classList.toggle('muted');
+                btn.classList.toggle('active');
+            });
+        });
+        
+        document.querySelectorAll('.solo-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const card = e.target.closest('.instrument-card');
+                const isAlreadySolo = card.classList.contains('solo');
+                
+                // Remove solo from all cards
+                document.querySelectorAll('.instrument-card').forEach(c => {
+                    c.classList.remove('solo');
+                });
+                
+                document.querySelectorAll('.solo-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+                
+                // Toggle solo on clicked card
+                if (!isAlreadySolo) {
+                    card.classList.add('solo');
+                    btn.classList.add('active');
+                }
+            });
+        });
+        
+        // ============================================
+        // Responsive Grid Update
+        // ============================================
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                const isMobile = window.innerWidth < 640;
+                const currentIsMobile = document.querySelector('.sequencer-grid').children.length === state.mobileSteps;
+                
+                if (isMobile !== currentIsMobile) {
+                    initSequencerGrids();
+                    // Restore active steps
+                    Object.keys(state.instruments).forEach(instrument => {
+                        state.instruments[instrument].forEach((isActive, index) => {
+                            if (isActive) {
+                                updateStepVisual(instrument, index);
+                            }
+                        });
+                    });
+                }
+            }, 250);
+        });
+        
+        // ============================================
+        // Initialize
+        // ============================================
+        initSequencerGrids();
+        
+        // Add some default beats for demo
+        setTimeout(() => {
+            // Drums: kick pattern
+            [0, 4, 8, 12].forEach(i => toggleStep('drums', i));
+            // Bass: simple pattern
+            [0, 6, 8, 14].forEach(i => toggleStep('bass', i));
+            // Percussion: offbeat
+            [2, 6, 10, 14].forEach(i => toggleStep('percussion', i));
+        }, 100);
+    </script>
+</body>
+</html>

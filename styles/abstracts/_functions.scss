@@ -1,0 +1,213 @@
+// ============================================
+// SCSS Functions
+// SalsaNor Beat Machine - Glassmorphic Theme
+// ============================================
+
+@use 'sass:math';
+@use 'sass:color';
+@use '../tokens/spacing' as *;
+
+// ====== Spacing Function ======
+
+/// Get spacing value by key from the spacing map
+/// @param {Number} $key - The spacing key (0-32)
+/// @return {String} - The spacing value in rem
+/// @example scss - Usage
+///   padding: spacing(4); // 1rem
+@function spacing($key) {
+  @if map-has-key($spacing, $key) {
+    @return map-get($spacing, $key);
+  } @else {
+    @warn "Spacing key `#{$key}` not found in spacing map.";
+    @return null;
+  }
+}
+
+// ====== Color Manipulation Functions ======
+
+/// Lighten a color by mixing it with white
+/// @param {Color} $color - The color to lighten
+/// @param {Number} $percentage - The percentage to lighten (0-100)
+/// @return {Color} - The lightened color
+/// @example scss - Usage
+///   background: tint(#667eea, 20%); // Lighter purple
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+/// Darken a color by mixing it with black
+/// @param {Color} $color - The color to darken
+/// @param {Number} $percentage - The percentage to darken (0-100)
+/// @return {Color} - The darkened color
+/// @example scss - Usage
+///   background: shade(#667eea, 20%); // Darker purple
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+/// Add transparency to a color
+/// @param {Color} $color - The color to modify
+/// @param {Number} $alpha - The alpha value (0-1)
+/// @return {Color} - The color with transparency
+/// @example scss - Usage
+///   background: alpha(#667eea, 0.5); // 50% transparent purple
+@function alpha($color, $alpha) {
+  @return rgba($color, $alpha);
+}
+
+// ====== Unit Conversion Functions ======
+
+/// Convert pixels to rem units
+/// @param {Number} $pixels - The pixel value to convert
+/// @param {Number} $base - The base font size (default: 16px)
+/// @return {String} - The rem value
+/// @example scss - Usage
+///   font-size: rem(24px); // 1.5rem
+@function rem($pixels, $base: 16px) {
+  @if unitless($pixels) {
+    $pixels: $pixels * 1px;
+  }
+  @if unitless($base) {
+    $base: $base * 1px;
+  }
+  @return math.div($pixels, $base) * 1rem;
+}
+
+/// Convert pixels to em units
+/// @param {Number} $pixels - The pixel value to convert
+/// @param {Number} $base - The base font size (default: 16px)
+/// @return {String} - The em value
+/// @example scss - Usage
+///   margin: em(24px); // 1.5em
+@function em($pixels, $base: 16px) {
+  @if unitless($pixels) {
+    $pixels: $pixels * 1px;
+  }
+  @if unitless($base) {
+    $base: $base * 1px;
+  }
+  @return math.div($pixels, $base) * 1em;
+}
+
+/// Strip unit from a value
+/// @param {Number} $value - The value with unit
+/// @return {Number} - The unitless value
+/// @example scss - Usage
+///   $unitless: strip-unit(24px); // 24
+@function strip-unit($value) {
+  @if type-of($value) == 'number' and not unitless($value) {
+    @return math.div($value, ($value * 0 + 1));
+  }
+  @return $value;
+}
+
+// ====== Math Functions ======
+
+/// Constrain a value between a minimum and maximum
+/// @param {Number} $min - The minimum value
+/// @param {Number} $value - The value to constrain
+/// @param {Number} $max - The maximum value
+/// @return {Number} - The constrained value
+/// @example scss - Usage
+///   width: clamp-value(200px, 50%, 600px);
+@function clamp-value($min, $value, $max) {
+  @return max($min, min($value, $max));
+}
+
+// ====== Utility Functions ======
+
+/// Check if a value is a valid CSS length
+/// @param {*} $value - The value to check
+/// @return {Boolean} - True if valid length
+@function is-length($value) {
+  @return type-of($value) == 'number' and index('em' 'rem' 'px' 'pt' 'cm' 'mm' 'in' 'pc' 'ex' 'ch' 'vw' 'vh' 'vmin' 'vmax' '%', unit($value)) != null;
+}
+
+/// Get a value from a nested map
+/// @param {Map} $map - The map to search
+/// @param {Arglist} $keys - The keys to traverse
+/// @return {*} - The value or null
+/// @example scss - Usage
+///   $value: map-deep-get($theme, 'colors', 'primary');
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    @if type-of($map) != 'map' {
+      @return null;
+    }
+    $map: map-get($map, $key);
+  }
+  @return $map;
+}
+
+/// Calculate the luminance of a color
+/// @param {Color} $color - The color to analyze
+/// @return {Number} - The luminance value (0-1)
+@function luminance($color) {
+  $red: color.red($color) / 255;
+  $green: color.green($color) / 255;
+  $blue: color.blue($color) / 255;
+
+  // Apply gamma correction
+  @if $red <= 0.03928 {
+    $red: $red / 12.92;
+  } @else {
+    $red: math.pow(($red + 0.055) / 1.055, 2.4);
+  }
+  @if $green <= 0.03928 {
+    $green: $green / 12.92;
+  } @else {
+    $green: math.pow(($green + 0.055) / 1.055, 2.4);
+  }
+  @if $blue <= 0.03928 {
+    $blue: $blue / 12.92;
+  } @else {
+    $blue: math.pow(($blue + 0.055) / 1.055, 2.4);
+  }
+
+  @return 0.2126 * $red + 0.7152 * $green + 0.0722 * $blue;
+}
+
+/// Calculate contrast ratio between two colors
+/// @param {Color} $color1 - First color
+/// @param {Color} $color2 - Second color
+/// @return {Number} - The contrast ratio
+@function contrast-ratio($color1, $color2) {
+  $l1: luminance($color1);
+  $l2: luminance($color2);
+  
+  @if $l1 > $l2 {
+    @return math.div($l1 + 0.05, $l2 + 0.05);
+  } @else {
+    @return math.div($l2 + 0.05, $l1 + 0.05);
+  }
+}
+
+/// Choose a contrasting text color (black or white) based on background
+/// @param {Color} $background - The background color
+/// @return {Color} - Either black or white
+@function text-contrast($background) {
+  $light-contrast: contrast-ratio($background, white);
+  $dark-contrast: contrast-ratio($background, black);
+  
+  @if $light-contrast > $dark-contrast {
+    @return white;
+  } @else {
+    @return black;
+  }
+}
+
+// ====== Z-Index Function ======
+
+/// Get z-index value by key
+/// @param {String} $key - The z-index key
+/// @return {Number} - The z-index value
+/// @example scss - Usage
+///   z-index: z($key: 'modal');
+@function z($key) {
+  @if map-has-key($z-index, $key) {
+    @return map-get($z-index, $key);
+  } @else {
+    @warn "Z-index key `#{$key}` not found.";
+    @return 0;
+  }
+}
