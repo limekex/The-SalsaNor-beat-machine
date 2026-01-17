@@ -289,17 +289,20 @@ Handle audio file uploads and management.
 
 ## Documentation Index
 
-1. **[BACKEND_ARCHITECTURE.md](./BACKEND_ARCHITECTURE.md)** - Complete architecture overview
-2. **[API_SPECIFICATION.md](./API_SPECIFICATION.md)** - Detailed API endpoints and responses
-3. **[DATABASE_SCHEMA.md](./DATABASE_SCHEMA.md)** - Complete database schema with Prisma
-4. **[IMPLEMENTATION_GUIDE.md](./IMPLEMENTATION_GUIDE.md)** - Step-by-step implementation instructions
-5. **[.env.example](../.env.example)** - Environment variable template
+1. **[QUICK_START.md](./QUICK_START.md)** - ⚡ Quick setup guide (start here!)
+2. **[BACKEND_ARCHITECTURE.md](./BACKEND_ARCHITECTURE.md)** - Complete architecture overview
+3. **[API_SPECIFICATION.md](./API_SPECIFICATION.md)** - Detailed API endpoints and responses
+4. **[DATABASE_SCHEMA.md](./DATABASE_SCHEMA.md)** - Complete database schema with Prisma
+5. **[IMPLEMENTATION_GUIDE.md](./IMPLEMENTATION_GUIDE.md)** - Step-by-step implementation instructions
+6. **[.env.example](../.env.example)** - Environment variable template
 
 ---
 
 ## Getting Started
 
-To begin implementing the backend:
+**Quick Start (5 minutes):** Follow the [Quick Start Guide](./QUICK_START.md) to set up a basic backend with authentication.
+
+**Full Implementation:** To begin implementing the complete backend:
 
 1. **Review the documentation** in the `/docs` folder
 2. **Choose your hosting platform** (Vercel, Railway, AWS)

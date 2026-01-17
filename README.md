@@ -31,6 +31,7 @@ This repository includes comprehensive documentation for adding backend function
 
 ### 📚 Backend Documentation
 
+- **[Quick Start Guide](./docs/QUICK_START.md)** - ⚡ Get started in 5 minutes
 - **[Backend Summary](./docs/BACKEND_SUMMARY.md)** - High-level overview of proposed backend features
 - **[Backend Architecture](./docs/BACKEND_ARCHITECTURE.md)** - Technical architecture and technology stack
 - **[API Specification](./docs/API_SPECIFICATION.md)** - Complete API endpoint documentation
@@ -49,11 +50,14 @@ This repository includes comprehensive documentation for adding backend function
 
 ### 🚀 Getting Started with Backend
 
-To add backend functionality to this project:
+**Quick Setup (5 minutes):** Follow the [Quick Start Guide](./docs/QUICK_START.md) to add authentication and pattern saving.
+
+**Full Implementation:** To add complete backend functionality to this project:
 
 1. Review the [Backend Summary](./docs/BACKEND_SUMMARY.md) for an overview
-2. Follow the [Implementation Guide](./docs/IMPLEMENTATION_GUIDE.md) for step-by-step instructions
-3. Use the [API Specification](./docs/API_SPECIFICATION.md) as a reference for endpoints
-4. Refer to the [Database Schema](./docs/DATABASE_SCHEMA.md) for data modeling
+2. Follow the [Quick Start Guide](./docs/QUICK_START.md) for initial setup
+3. Use the [Implementation Guide](./docs/IMPLEMENTATION_GUIDE.md) for detailed step-by-step instructions
+4. Refer to the [API Specification](./docs/API_SPECIFICATION.md) as a reference for endpoints
+5. Use the [Database Schema](./docs/DATABASE_SCHEMA.md) for data modeling
 
 The documentation provides everything needed to implement a production-ready backend, from authentication to social features to analytics.
