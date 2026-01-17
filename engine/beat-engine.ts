@@ -15,6 +15,7 @@ export class BeatEngine {
   private audioTimeDelta = 0;
   private machineDisposers: (() => void)[] = [];
   private readonly instrumentPlayers = new Map<IInstrument, InstrumentPlayer>();
+  private mixerNotReadyLogged = false;
 
   interval: number | null = null;
   _machine: IMachine = createMachine();
@@ -22,7 +23,10 @@ export class BeatEngine {
 
   constructor(private mixer: AudioBackend) {
     makeAutoObservable(this);
-    this.mixer.init();
+  }
+
+  async init() {
+    await this.mixer.init();
     console.log('BeatEngine initialized - AudioBackend state:', {
       ready: this.mixer.ready,
       hasContext: !!this.mixer.context,
@@ -195,6 +199,7 @@ export class BeatEngine {
   scheduleBuffers = () => {
     const context = this.mixer.context;
     if (context && this.mixer.ready) {
+      this.mixerNotReadyLogged = false; // Reset the flag when mixer is ready
       const sampleTime = this.beatTime / 2;
       const currentBeat = this.getBeatIndex();
       while (this.nextSampleIndex - currentBeat * 2 < 64) {
@@ -213,7 +218,10 @@ export class BeatEngine {
         this.nextSampleIndex++;
       }
     } else {
-      console.log('Mixer not ready yet - context:', !!context, 'ready:', this.mixer.ready);
+      if (!this.mixerNotReadyLogged) {
+        console.log('Mixer not ready yet - context:', !!context, 'ready:', this.mixer.ready);
+        this.mixerNotReadyLogged = true;
+      }
     }
     this.interval = window.setTimeout(() => this.scheduleBuffers(), 1000);
   };
