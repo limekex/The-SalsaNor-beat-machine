@@ -111,7 +111,7 @@ export const BeatMachineUI = observer(({ machines }: IBeatMachineUIProps) => {
             <Stack direction="row" spacing={1} alignItems="center" marginBottom={1}>
               <Grid size={12}>
                 {engine && salsa && merengue && (
-                  <ButtonGroup variant="outlined" size="small" primary aria-label="Music style" fullWidth>
+                  <ButtonGroup variant="outlined" size="small" aria-label="Music style" fullWidth>
                     <Button
                       onClick={() => setMachine(observable(salsa))}
                       variant={machine.flavor === 'Salsa' ? 'contained' : undefined}
@@ -137,7 +137,7 @@ export const BeatMachineUI = observer(({ machines }: IBeatMachineUIProps) => {
                   <Select
                     native
                     value={machine.keyNote}
-                    onChange={(e) => (machine.keyNote = parseInt(e.target.value as string, 10))}
+                    onChange={(e) => (machine.keyNote = parseInt(String(e.target.value), 10))}
                     inputProps={{
                       id: 'machine-key-note',
                     }}
@@ -187,7 +187,7 @@ export const BeatMachineUI = observer(({ machines }: IBeatMachineUIProps) => {
                 justifyContent={'space-between'}
                 className={styles.controls}
               >
-                <div className={styles.controlsIndicator} alignItems={'space-between'} justifyContent={'space-between'}>
+                <div className={styles.controlsIndicator}>
                   <BeatIndicator currentBeat={beatIndex} max={beatCount} />
                 </div>
               </Grid>

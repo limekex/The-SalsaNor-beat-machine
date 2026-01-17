@@ -15,6 +15,7 @@ export class BeatEngine {
   private audioTimeDelta = 0;
   private machineDisposers: (() => void)[] = [];
   private readonly instrumentPlayers = new Map<IInstrument, InstrumentPlayer>();
+  private mixerNotReadyLogged = false;
 
   interval: number | null = null;
   _machine: IMachine = createMachine();
@@ -22,28 +23,14 @@ export class BeatEngine {
 
   constructor(private mixer: AudioBackend) {
     makeAutoObservable(this);
-    this.mixer.init();
-    console.log('Initial AudioBackend state:', {
+  }
+
+  async init() {
+    await this.mixer.init();
+    console.log('BeatEngine initialized - AudioBackend state:', {
       ready: this.mixer.ready,
-      buffer: this.mixer.buffer,
-      bankDescriptor: this.mixer.bankDescriptor,
-      zeroTime: this.mixer.zeroTime,
-      context: this.mixer._context,
+      hasContext: !!this.mixer.context,
     });
-
-    // Prøv å kalle init på nytt:
-    this.mixer.init();
-
-    // Logg status igjen
-    setTimeout(() => {
-      console.log('Post-init AudioBackend state:', {
-        ready: this.mixer.ready,
-        buffer: this.mixer.buffer,
-        bankDescriptor: this.mixer.bankDescriptor,
-        zeroTime: this.mixer.zeroTime,
-        context: this.mixer._context,
-      });
-    }, 2000);
   }
 
   get machine() {
@@ -92,6 +79,20 @@ export class BeatEngine {
             this.scheduleBuffers();
           }
         }),
+
+        observe(this.machine, 'keyNote', () => {
+          if (this.playing) {
+            for (const instrument of this.machine.instruments) {
+              if (!instrument.keyedInstrument) {
+                continue;
+              }
+              const player = this.instrumentPlayers.get(instrument);
+              if (player) {
+                this.rescheduleInstrument(instrument, player);
+              }
+            }
+          }
+        }),
       );
     }
   }
@@ -136,8 +137,92 @@ export class BeatEngine {
     return (this.mixer.getCurrentTime() + this.audioTimeDelta) / this.beatTime;
   }
 
+  private getInstrumentPlayer(context: AudioContext, instrument: IInstrument) {
+    const instrumentPlayer = this.instrumentPlayers.get(instrument);
+    if (instrumentPlayer) {
+      return instrumentPlayer;
+    } else {
+      const newPlayer = new InstrumentPlayer(context, instrument);
+      this.machineDisposers.push(
+        observe(instrument, 'activeProgram', () => this.rescheduleInstrument(instrument, newPlayer)),
+      );
+      this.instrumentPlayers.set(instrument, newPlayer);
+      return newPlayer;
+    }
+  }
+
+  rescheduleInstrument(instrument: IInstrument, player: InstrumentPlayer) {
+    player.reset();
+    const sampleTime = this.beatTime / 2;
+    for (let sampleIndex = Math.ceil(this.getBeatIndex() * 2); sampleIndex < this.nextSampleIndex; sampleIndex++) {
+      this.instrumentNotes(instrument, sampleIndex).forEach((note) => {
+        this.mixer.play(note.sampleName, player, sampleIndex * sampleTime - this.audioTimeDelta, note.velocity);
+      });
+    }
+  }
+
+  private instrumentNotes(instrument: IInstrument, sampleIndex: number): IInstrumentSample[] {
+    const result: IInstrumentSample[] = [];
+    if (instrument.enabled) {
+      const program = instrument.programs[instrument.activeProgram];
+      sampleIndex %= program.length;
+      program.notes
+        .filter((note) => note.index === sampleIndex)
+        .forEach((note) => {
+          let pitch = note.pitch;
+          if (instrument.keyedInstrument) {
+            pitch += this.machine.keyNote;
+          }
+          if (note.hand !== 'left') {
+            result.push({
+              sampleName: instrument.id + '-' + (pitch + instrument.pitchOffset),
+              velocity: note.velocity,
+            });
+            if (note.pianoTonic) {
+              result.push({
+                sampleName: instrument.id + '-' + (pitch + instrument.pitchOffset + 12),
+                velocity: note.velocity,
+              });
+            }
+          }
+          if (instrument.playBothHands && note.hand !== 'right') {
+            result.push({
+              sampleName: instrument.id + '-' + (pitch + instrument.leftHandPitchOffset),
+              velocity: note.velocity,
+            });
+          }
+        });
+    }
+    return result;
+  }
+
   scheduleBuffers = () => {
-    console.log('scheduleBuffers called');
+    const context = this.mixer.context;
+    if (context && this.mixer.ready) {
+      this.mixerNotReadyLogged = false; // Reset the flag when mixer is ready
+      const sampleTime = this.beatTime / 2;
+      const currentBeat = this.getBeatIndex();
+      while (this.nextSampleIndex - currentBeat * 2 < 64) {
+        const sampleIndex = this.nextSampleIndex;
+        this.machine.instruments.forEach((instrument) => {
+          const instrumentPlayer = this.getInstrumentPlayer(context, instrument);
+          this.instrumentNotes(instrument, sampleIndex).forEach((note) => {
+            this.mixer.play(
+              note.sampleName,
+              instrumentPlayer,
+              sampleIndex * sampleTime - this.audioTimeDelta,
+              note.velocity,
+            );
+          });
+        });
+        this.nextSampleIndex++;
+      }
+    } else {
+      if (!this.mixerNotReadyLogged) {
+        console.log('Mixer not ready yet - context:', !!context, 'ready:', this.mixer.ready);
+        this.mixerNotReadyLogged = true;
+      }
+    }
     this.interval = window.setTimeout(() => this.scheduleBuffers(), 1000);
   };
 

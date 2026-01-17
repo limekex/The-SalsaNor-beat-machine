@@ -6,10 +6,20 @@ export function useBeatEngine() {
   const [engine, setEngine] = useState<BeatEngine | null>(null);
 
   useEffect(() => {
-    const newEngine = new BeatEngine(new AudioBackend());
-    setEngine(newEngine);
+    const initEngine = async () => {
+      const mixer = new AudioBackend();
+      const newEngine = new BeatEngine(mixer);
+      await newEngine.init();
+      setEngine(newEngine);
+    };
 
-    return () => newEngine.stop();
+    initEngine();
+
+    return () => {
+      if (engine) {
+        engine.stop();
+      }
+    };
   }, []);
 
   return engine;

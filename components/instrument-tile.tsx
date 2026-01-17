@@ -74,7 +74,7 @@ export const InstrumentTile = observer(({ instrument }: IInstrumentTileProps) =>
           <Select
             native
             value={instrument.activeProgram + 1}
-            onChange={(e) => (instrument.activeProgram = parseInt(e.target.value as string, 10) - 1)}
+            onChange={(e) => (instrument.activeProgram = parseInt(String(e.target.value), 10) - 1)}
           >
             {instrument.programs.map((program, index) => (
               <option key={program.title} value={index + 1}>
