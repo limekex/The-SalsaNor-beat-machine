@@ -4,7 +4,7 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 1rem; // $spacing-4
-  
+
   @include respond-to('desktop') {
     padding: 1.5rem; // $spacing-6
   }
@@ -27,7 +27,7 @@
   gap: 0.75rem; // $spacing-3
   flex: 1;
   min-width: 280px;
-  
+
   @include respond-to('mobile') {
     width: 100%;
     flex-basis: 100%;
@@ -54,10 +54,10 @@
 .flavorSelect {
   display: flex;
   gap: 0.5rem; // $spacing-2
-  
+
   @include respond-to('mobile') {
     width: 100%;
-    
+
     button {
       flex: 1;
     }
@@ -74,7 +74,7 @@
 .instrumentGrid {
   display: grid;
   gap: 1.25rem; // $spacing-5
-  
+
   @include responsive-grid(5, 3, 2);
 }
 
