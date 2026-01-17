@@ -72,6 +72,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 Test it: http://localhost:3009/api/health
 
+> **Note:** This app uses port 3009 (configured in package.json), not the default Next.js port 3000.
+
 ### 6. Add Authentication
 
 Create the files from the Implementation Guide:

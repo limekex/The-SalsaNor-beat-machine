@@ -2,8 +2,8 @@
 
 ## Base URL
 ```
-Production: https://api.salsabeatmachine.org/v1
-Development: http://localhost:3009/api/v1
+Production: https://api.salsabeatmachine.org
+Development: http://localhost:3009/api
 ```
 
 ## Authentication

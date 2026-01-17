@@ -37,7 +37,7 @@ This repository includes comprehensive documentation for adding backend function
 - **[API Specification](./docs/API_SPECIFICATION.md)** - Complete API endpoint documentation
 - **[Database Schema](./docs/DATABASE_SCHEMA.md)** - Database design with Prisma schema
 - **[Implementation Guide](./docs/IMPLEMENTATION_GUIDE.md)** - Step-by-step implementation instructions
-- **[Environment Variables](../.env.example)** - Environment configuration template
+- **[Environment Variables](.env.example)** - Environment configuration template
 
 ### 🎯 Key Backend Features
 
