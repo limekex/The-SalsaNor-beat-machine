@@ -8,5 +8,5 @@ export async function loadMachine(fileName: string) {
   const machineXml = await fs.readFile(fullPath, 'utf-8');
   const xml = new DOMParser().parseFromString(machineXml, 'text/xml');
   const loader = new MachineXMLLoader();
-  return JSON.parse(JSON.stringify(loader.loadMachine(xml)));
+  return JSON.parse(JSON.stringify(loader.loadMachine(xml as unknown as Document)));
 }

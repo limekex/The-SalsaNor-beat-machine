@@ -25,10 +25,7 @@ export class BeatEngine {
     this.mixer.init();
     console.log('BeatEngine initialized - AudioBackend state:', {
       ready: this.mixer.ready,
-      buffer: this.mixer.buffer,
-      bankDescriptor: this.mixer.bankDescriptor,
-      zeroTime: this.mixer.zeroTime,
-      context: this.mixer._context,
+      hasContext: !!this.mixer.context,
     });
   }
 
