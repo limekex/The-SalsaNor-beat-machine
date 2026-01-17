@@ -30,7 +30,7 @@ npx prisma init
 
 ### 3. Configure Environment
 
-Copy `.env.example` to `.env.local` and update:
+Copy `.env.example` from the project root to `.env.local` and update:
 
 ```env
 DATABASE_URL="postgresql://username:password@localhost:5432/salsabeatmachine"

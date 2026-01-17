@@ -94,7 +94,7 @@ REDIS_URL="redis://localhost:6379"
 
 # App Config
 NODE_ENV="development"
-NEXT_PUBLIC_API_URL="http://localhost:3009/api/v1"
+NEXT_PUBLIC_API_URL="http://localhost:3009/api"
 ```
 
 ### Create Prisma Schema

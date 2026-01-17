@@ -541,8 +541,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// All models defined above would go here
-// See individual model definitions above
+// Copy all the model definitions from above into this schema.prisma file
+// Models: User, UserPreference, Session, Pattern, Like, Comment, Follow, Activity, Analytics
+// Refer to the individual model sections above for the complete definitions
 ```
 
 ---
