@@ -1,19 +1,15 @@
-@use '../styles/tokens/colors' as *;
-@use '../styles/tokens/spacing' as *;
-@use '../styles/tokens/shadows' as *;
-
 .beat {
   width: 12px;
   height: 12px;
-  border-radius: $radius-full;
+  border-radius: 9999px; // $radius-full
   background: rgba(255, 255, 255, 0.2);
   transition: all 0.15s ease;
   display: inline-block;
-  margin-right: $spacing-2;
+  margin-right: 0.5rem; // $spacing-2
 }
 
 .active {
-  background: $color-cyan;
-  box-shadow: $glow-cyan-md;
+  background: #00f5ff;
+  box-shadow: 0 0 15px rgba(0, 245, 255, 0.6);
   transform: scale(1.3);
 }

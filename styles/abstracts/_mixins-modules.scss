@@ -1,0 +1,102 @@
+// ============================================
+// SCSS Mixins for CSS Modules
+// SalsaNor Beat Machine - Glassmorphic Theme
+// (No token imports to avoid :root conflicts)
+// ============================================
+
+// ====== Glassmorphism Mixins ======
+
+@mixin glass-light {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+@mixin glass-medium {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+@mixin glass-dark {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+// ====== Responsive Breakpoint Mixins ======
+
+$breakpoints: (
+  mobile: 480px,
+  tablet: 640px,
+  desktop: 1024px,
+  wide: 1536px,
+);
+
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+}
+
+// ====== Hover Effect Mixins ======
+
+@mixin hover-lift($distance: -2px) {
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    transform: translateY($distance);
+  }
+}
+
+// ====== Animation Mixins ======
+
+@mixin smooth-transition($properties: all, $duration: 0.3s, $easing: cubic-bezier(0.4, 0, 0.2, 1)) {
+  transition: $properties $duration $easing;
+}
+
+// ====== Focus State Mixins ======
+
+@mixin focus-visible {
+  &:focus-visible {
+    outline: 2px solid #00f5ff;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(0, 245, 255, 0.2);
+  }
+}
+
+// ====== Typography Mixins ======
+
+@mixin heading-1 {
+  font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
+  font-size: clamp(2rem, 4vw + 1rem, 3.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+// ====== Grid Layout Mixins ======
+
+@mixin responsive-grid($columns-desktop: 3, $columns-tablet: 2, $columns-mobile: 1) {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat($columns-mobile, 1fr);
+  
+  @include respond-to('tablet') {
+    gap: 1.5rem;
+    grid-template-columns: repeat($columns-tablet, 1fr);
+  }
+  
+  @include respond-to('desktop') {
+    grid-template-columns: repeat($columns-desktop, 1fr);
+  }
+}

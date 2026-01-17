@@ -1,27 +1,23 @@
-@use '../../styles/abstracts/mixins' as *;
-@use '../../styles/tokens/spacing' as *;
-@use '../../styles/tokens/colors' as *;
-@use '../../styles/tokens/typography' as *;
-@use '../../styles/tokens/shadows' as *;
+@use '../../styles/abstracts/mixins-modules' as *;
 
 .btn {
-  padding: $spacing-3 $spacing-5;
-  border-radius: $radius-md;
-  font-weight: $font-weight-medium;
-  font-size: $font-size-base;
-  font-family: $font-family-ui;
+  padding: 0.75rem 1.25rem; // $spacing-3 $spacing-5
+  border-radius: 0.5rem; // $radius-md
+  font-weight: 500; // $font-weight-medium
+  font-size: 1rem; // $font-size-base
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   cursor: pointer;
   border: none;
   display: inline-flex;
   align-items: center;
-  gap: $spacing-2;
+  gap: 0.5rem; // $spacing-2
   @include smooth-transition(all, 0.2s, ease);
   @include focus-visible;
   
   &--primary {
-    background: linear-gradient(135deg, $color-primary, $color-purple-accent);
-    color: $text-primary;
-    box-shadow: $shadow-button-primary;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
     
     &:hover:not(:disabled) {
       transform: translateY(-2px) scale(1.02);
@@ -36,10 +32,10 @@
   &--ghost {
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    color: $text-primary;
+    color: rgba(255, 255, 255, 0.95);
     
     &:hover:not(:disabled) {
-      background: rgba(255, 255, 255, $hover-bg-opacity);
+      background: rgba(255, 255, 255, 0.25);
     }
   }
   
@@ -47,9 +43,9 @@
     width: 36px;
     height: 36px;
     padding: 0;
-    border-radius: $radius-sm;
+    border-radius: 0.375rem; // $radius-sm
     background: rgba(255, 255, 255, 0.1);
-    color: $text-primary;
+    color: rgba(255, 255, 255, 0.95);
     justify-content: center;
     
     &:hover:not(:disabled) {
@@ -58,8 +54,8 @@
     }
     
     &.active {
-      background: $color-cyan;
-      color: $bg-color-dark;
+      background: #00f5ff;
+      color: #0f0c29;
     }
   }
   

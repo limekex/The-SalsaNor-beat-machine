@@ -1,14 +1,16 @@
-// Google Fonts import
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;400&display=swap');
+// ===================================================
+// Global Stylesheet - The SalsaNor Beat Machine
+// ===================================================
 
-// Import design system
+// Import design system tokens and utilities
 @use 'tokens/colors';
 @use 'tokens/typography';
 @use 'tokens/spacing';
 @use 'tokens/shadows';
 @use 'abstracts/functions';
 @use 'abstracts/mixins';
-
-// Base styles
 @use 'base/reset';
 @use 'base/globals';
+
+// Google Fonts - imported separately via @import
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;400&display=swap');

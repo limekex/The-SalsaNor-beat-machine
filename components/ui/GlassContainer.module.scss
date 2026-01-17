@@ -1,10 +1,9 @@
-@use '../../styles/abstracts/mixins' as *;
-@use '../../styles/tokens/spacing' as *;
+@use '../../styles/abstracts/mixins-modules' as *;
 
 .glass {
   @include glass-light;
-  border-radius: $radius-lg;
-  padding: $spacing-6;
+  border-radius: 0.75rem; // $radius-lg
+  padding: 1.5rem; // $spacing-6
   
   &--light {
     @include glass-light;
@@ -19,7 +18,9 @@
   }
   
   &--hover {
-    @include hover-lift {
+    @include hover-lift;
+    
+    &:hover {
       background: rgba(255, 255, 255, 0.15);
     }
   }
