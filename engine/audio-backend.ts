@@ -10,22 +10,39 @@ export class AudioBackend {
   private bankDescriptor?: BankDescriptor;
   private zeroTime: number | null = null;
   private _context?: AudioContext;
+  private audioFormat: string;
 
   constructor() {
     this.ready = false;
     const hasWebM = typeof MediaSource !== 'undefined' && MediaSource.isTypeSupported('audio/webm;codecs="vorbis"');
-    this.loadBank(hasWebM ? 'assets/audio/main.webm' : 'assets/audio/main.mp3');
-    this.loadBankDescriptor('assets/audio/main.json');
+    this.audioFormat = hasWebM ? 'assets/audio/main.webm' : 'assets/audio/main.mp3';
+    console.log('AudioBackend created - will load audio after init()');
   }
 
   /**
    * Initialiserer AudioContext og setter zeroTime umiddelbart.
+   * Starter deretter lasting av audio filer.
    */
-  init(context = typeof AudioContext !== 'undefined' ? new AudioContext() : undefined) {
+  async init(context = typeof AudioContext !== 'undefined' ? new AudioContext() : undefined) {
     this._context = context;
     if (this._context) {
       this.zeroTime = this._context.currentTime;
       console.log('🎵 AudioBackend initialized — zeroTime set to:', this.zeroTime);
+      
+      // Load audio files after context is initialized
+      try {
+        await Promise.all([
+          this.loadBank(this.audioFormat),
+          this.loadBankDescriptor('assets/audio/main.json')
+        ]);
+        console.log('✅ Audio files loaded successfully');
+      } catch (error) {
+        console.error('❌ Error loading audio files:', error);
+        console.error('Please ensure the following files exist in public/assets/audio/:');
+        console.error('  - main.webm (or main.mp3)');
+        console.error('  - main.json');
+        console.error('Download them from: https://www.salsabeatmachine.org/assets/audio/');
+      }
     }
   }
 
@@ -34,17 +51,40 @@ export class AudioBackend {
   }
 
   private async loadBank(url: string) {
-    const req = await fetch(url);
-    const response = await req.arrayBuffer();
-    this.buffer = await new Promise((resolve, reject) => {
-      this.context?.decodeAudioData(response, resolve, reject);
-    });
-    this.ready = true;
+    try {
+      console.log('Loading audio bank from:', url);
+      const req = await fetch(url);
+      if (!req.ok) {
+        throw new Error(`Failed to fetch ${url}: ${req.status} ${req.statusText}`);
+      }
+      const response = await req.arrayBuffer();
+      if (!this.context) {
+        throw new Error('AudioContext not initialized - cannot decode audio');
+      }
+      this.buffer = await new Promise((resolve, reject) => {
+        this.context?.decodeAudioData(response, resolve, reject);
+      });
+      this.ready = true;
+      console.log('✅ Audio bank loaded successfully');
+    } catch (error) {
+      console.error('❌ Failed to load audio bank:', error);
+      throw error;
+    }
   }
 
   private async loadBankDescriptor(url: string) {
-    const req = await fetch(url);
-    this.bankDescriptor = await req.json();
+    try {
+      console.log('Loading bank descriptor from:', url);
+      const req = await fetch(url);
+      if (!req.ok) {
+        throw new Error(`Failed to fetch ${url}: ${req.status} ${req.statusText}`);
+      }
+      this.bankDescriptor = await req.json();
+      console.log('✅ Bank descriptor loaded successfully');
+    } catch (error) {
+      console.error('❌ Failed to load bank descriptor:', error);
+      throw error;
+    }
   }
 
   play(sampleName: string, player: InstrumentPlayer, when: number, velocity?: number) {
