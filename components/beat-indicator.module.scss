@@ -1,0 +1,15 @@
+.beat {
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px; // $radius-full
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.15s ease;
+  display: inline-block;
+  margin-right: 0.5rem; // $spacing-2
+}
+
+.active {
+  background: #00f5ff;
+  box-shadow: 0 0 15px rgba(0, 245, 255, 0.6);
+  transform: scale(1.3);
+}

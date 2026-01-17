@@ -1,0 +1,76 @@
+@use '../../styles/abstracts/mixins-modules' as *;
+
+.btn {
+  padding: 0.75rem 1.25rem; // $spacing-3 $spacing-5
+  border-radius: 0.5rem; // $radius-md
+  font-weight: 500; // $font-weight-medium
+  font-size: 1rem; // $font-size-base
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem; // $spacing-2
+  @include smooth-transition(all, 0.2s, ease);
+  @include focus-visible;
+  
+  &--primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    
+    &:hover:not(:disabled) {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 30px rgba(102, 126, 234, 0.7);
+    }
+    
+    &:active {
+      transform: translateY(0) scale(0.98);
+    }
+  }
+  
+  &--ghost {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.95);
+    
+    &:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.25);
+    }
+  }
+  
+  &--icon {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 0.375rem; // $radius-sm
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.95);
+    justify-content: center;
+    
+    &:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+    }
+    
+    &.active {
+      background: #00f5ff;
+      color: #0f0c29;
+    }
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}

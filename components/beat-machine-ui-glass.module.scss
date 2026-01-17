@@ -1,0 +1,86 @@
+@use '../styles/abstracts/mixins-modules' as *;
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem; // $spacing-4
+  
+  @include respond-to('desktop') {
+    padding: 1.5rem; // $spacing-6
+  }
+}
+
+.controlBar {
+  margin-bottom: 1.5rem; // $spacing-6
+}
+
+.controls {
+  display: flex;
+  gap: 1rem; // $spacing-4
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.bpmControl {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; // $spacing-3
+  flex: 1;
+  min-width: 280px;
+  
+  @include respond-to('mobile') {
+    width: 100%;
+    flex-basis: 100%;
+  }
+}
+
+.bpmLabel {
+  font-size: clamp(0.75rem, 0.5vw + 0.25rem, 0.875rem);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.bpmValue {
+  font-weight: 600;
+  color: var(--color-cyan);
+  min-width: 3ch;
+  text-align: right;
+}
+
+.bpmSlider {
+  flex: 1;
+}
+
+.flavorSelect {
+  display: flex;
+  gap: 0.5rem; // $spacing-2
+  
+  @include respond-to('mobile') {
+    width: 100%;
+    
+    button {
+      flex: 1;
+    }
+  }
+}
+
+.beatIndicator {
+  display: flex;
+  justify-content: center;
+  padding: 1.25rem; // $spacing-5
+  margin-bottom: 1.5rem; // $spacing-6
+}
+
+.instrumentGrid {
+  display: grid;
+  gap: 1.25rem; // $spacing-5
+  
+  @include responsive-grid(3, 2, 1);
+}
+
+.instrumentCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 150px;
+}
