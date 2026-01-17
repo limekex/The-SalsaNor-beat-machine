@@ -1,14 +1,18 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
+import { useState } from 'react';
 import { BeatMachineUI, IDefaultMachines } from '../components/beat-machine-ui';
+import { BeatMachineUIGlass } from '../components/beat-machine-ui-glass';
 import { loadMachine } from '../services/load-machine';
-import styles from './index.module.css';
+import styles from './index.module.scss';
 
 interface IHomeProps {
   machines: IDefaultMachines;
 }
 
 export default function Home({ machines }: IHomeProps) {
+  const [useGlassUI, setUseGlassUI] = useState(true);
+
   return (
     <>
       <Head>
@@ -17,7 +21,7 @@ export default function Home({ machines }: IHomeProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#1976d2" />
+        <meta name="theme-color" content="#667eea" />
         <meta
           name="description"
           content="Explore Salsa music with an interactive rhythm machine. Practice Salsa timing and train your ears. Combine and arrange instruments to create different salsa tunes."
@@ -35,11 +39,23 @@ export default function Home({ machines }: IHomeProps) {
       </Head>
 
       <main className={styles.homepage}>
-        <h1>The SalsaNor SalsaBeat Machine</h1>
+        <h1 className={styles.title}>🎵 The SalsaNor Beat Machine</h1>
 
         <div className={styles.appContainer}>
-          <BeatMachineUI machines={machines} />
+          {useGlassUI ? (
+            <BeatMachineUIGlass machines={machines} />
+          ) : (
+            <BeatMachineUI machines={machines} />
+          )}
         </div>
+        
+        <button 
+          onClick={() => setUseGlassUI(!useGlassUI)}
+          className={styles.uiToggle}
+          title={`Switch to ${useGlassUI ? 'Classic' : 'Glass'} UI`}
+        >
+          {useGlassUI ? '🎨 Classic UI' : '✨ Glass UI'}
+        </button>
       </main>
     </>
   );

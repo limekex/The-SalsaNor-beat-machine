@@ -1,0 +1,71 @@
+@use '../styles/abstracts/mixins' as *;
+@use '../styles/tokens/typography' as *;
+@use '../styles/tokens/spacing' as *;
+@use '../styles/tokens/colors' as *;
+
+.homepage {
+  min-height: 100vh;
+  padding: $spacing-4;
+  
+  @include respond-to('desktop') {
+    padding: $spacing-6;
+  }
+}
+
+.title {
+  @include heading-1;
+  text-align: center;
+  margin-bottom: $spacing-8;
+  background: linear-gradient(135deg, $color-cyan, $color-primary, $color-pink);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s ease-in-out infinite;
+  background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.appContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.uiToggle {
+  position: fixed;
+  bottom: $spacing-6;
+  right: $spacing-6;
+  padding: $spacing-3 $spacing-5;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: $text-primary;
+  border-radius: $radius-md;
+  cursor: pointer;
+  font-family: $font-family-ui;
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  @include respond-to('mobile') {
+    bottom: $spacing-4;
+    right: $spacing-4;
+    padding: $spacing-2 $spacing-4;
+    font-size: $font-size-xs;
+  }
+}

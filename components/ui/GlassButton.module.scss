@@ -1,0 +1,80 @@
+@use '../../styles/abstracts/mixins' as *;
+@use '../../styles/tokens/spacing' as *;
+@use '../../styles/tokens/colors' as *;
+@use '../../styles/tokens/typography' as *;
+@use '../../styles/tokens/shadows' as *;
+
+.btn {
+  padding: $spacing-3 $spacing-5;
+  border-radius: $radius-md;
+  font-weight: $font-weight-medium;
+  font-size: $font-size-base;
+  font-family: $font-family-ui;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  @include smooth-transition(all, 0.2s, ease);
+  @include focus-visible;
+  
+  &--primary {
+    background: linear-gradient(135deg, $color-primary, $color-purple-accent);
+    color: $text-primary;
+    box-shadow: $shadow-button-primary;
+    
+    &:hover:not(:disabled) {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 30px rgba(102, 126, 234, 0.7);
+    }
+    
+    &:active {
+      transform: translateY(0) scale(0.98);
+    }
+  }
+  
+  &--ghost {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: $text-primary;
+    
+    &:hover:not(:disabled) {
+      background: rgba(255, 255, 255, $hover-bg-opacity);
+    }
+  }
+  
+  &--icon {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: $radius-sm;
+    background: rgba(255, 255, 255, 0.1);
+    color: $text-primary;
+    justify-content: center;
+    
+    &:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+    }
+    
+    &.active {
+      background: $color-cyan;
+      color: $bg-color-dark;
+    }
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}

@@ -1,0 +1,26 @@
+@use '../../styles/abstracts/mixins' as *;
+@use '../../styles/tokens/spacing' as *;
+
+.glass {
+  @include glass-light;
+  border-radius: $radius-lg;
+  padding: $spacing-6;
+  
+  &--light {
+    @include glass-light;
+  }
+  
+  &--medium {
+    @include glass-medium;
+  }
+  
+  &--dark {
+    @include glass-dark;
+  }
+  
+  &--hover {
+    @include hover-lift {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+}

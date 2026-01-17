@@ -1,0 +1,19 @@
+@use '../tokens/colors' as *;
+@use '../tokens/typography' as *;
+
+body {
+  background: linear-gradient(135deg, $bg-color-dark, $bg-color-mid, $bg-color-light);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+// Accessibility - reduced motion
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
