@@ -152,7 +152,7 @@ Handle audio file uploads and management.
 
 ### API Structure
 ```
-/api/v1/
+/api/
 ├── auth/
 │   ├── register
 │   ├── login

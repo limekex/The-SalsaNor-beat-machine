@@ -294,9 +294,9 @@ model Pattern {
   @@index([userId])
   @@index([flavor])
   @@index([isPublic])
-  @@index([createdAt(sort: Desc)])
-  @@index([playCount(sort: Desc)])
-  @@index([likeCount(sort: Desc)])
+  @@index([createdAt])
+  @@index([playCount])
+  @@index([likeCount])
   @@index([originalPatternId])
   @@map("patterns")
 }
@@ -474,7 +474,7 @@ model Activity {
   @@index([userId])
   @@index([activityType])
   @@index([patternId])
-  @@index([createdAt(sort: Desc)])
+  @@index([createdAt])
   @@map("activities")
 }
 ```
@@ -516,7 +516,7 @@ model Analytics {
 
   @@unique([metricType, metricKey, timePeriod, aggregationLevel], name: "unique_analytics_entry")
   @@index([metricType])
-  @@index([timePeriod(sort: Desc)])
+  @@index([timePeriod])
   @@index([aggregationLevel])
   @@map("analytics")
 }

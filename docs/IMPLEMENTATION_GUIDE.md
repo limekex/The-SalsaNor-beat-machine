@@ -608,6 +608,18 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
         return errorResponse(res, 'VALIDATION_ERROR', 'Invalid input', 400, validation.error.errors);
       }
 
+      // TODO: Add rate limiting - check pattern creation count in last hour
+      // Example: Limit to 20 patterns per hour as documented in API_SPECIFICATION.md
+      // const recentPatterns = await prisma.pattern.count({
+      //   where: {
+      //     userId: req.user!.id,
+      //     createdAt: { gte: new Date(Date.now() - 3600000) }
+      //   }
+      // });
+      // if (recentPatterns >= 20) {
+      //   return errorResponse(res, 'RATE_LIMIT_EXCEEDED', 'Too many patterns created recently', 429);
+      // }
+
       const pattern = await prisma.pattern.create({
         data: {
           ...validation.data,
@@ -629,10 +641,11 @@ async function handler(req: AuthenticatedRequest, res: NextApiResponse) {
       const limitNum = Math.min(parseInt(limit as string), 100);
       const skip = (pageNum - 1) * limitNum;
 
-      const where: any = { isPublic: true };
-      if (flavor) where.flavor = flavor;
+      const where: { isPublic: boolean; flavor?: string } = { isPublic: true };
+      if (flavor) where.flavor = flavor as string;
 
-      const orderBy: any = {};
+      type OrderBy = { likeCount?: 'desc'; playCount?: 'desc'; createdAt?: 'desc' };
+      const orderBy: OrderBy = {};
       if (sort === 'popular') orderBy.likeCount = 'desc';
       else if (sort === 'played') orderBy.playCount = 'desc';
       else orderBy.createdAt = 'desc';
