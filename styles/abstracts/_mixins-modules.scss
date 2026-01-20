@@ -51,7 +51,7 @@ $breakpoints: (
 
 @mixin hover-lift($distance: -2px) {
   transition: transform 0.2s ease;
-  
+
   &:hover {
     transform: translateY($distance);
   }
@@ -90,12 +90,12 @@ $breakpoints: (
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat($columns-mobile, 1fr);
-  
+
   @include respond-to('tablet') {
     gap: 1.5rem;
     grid-template-columns: repeat($columns-tablet, 1fr);
   }
-  
+
   @include respond-to('desktop') {
     grid-template-columns: repeat($columns-desktop, 1fr);
   }

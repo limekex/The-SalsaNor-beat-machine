@@ -196,7 +196,7 @@ export const WidgetCompact = observer(({ machine, instruments, initialBpm, autop
 
   const togglePlay = () => {
     if (!engine) return;
-    
+
     if (isPlaying) {
       engine.stop();
       setIsPlaying(false);
@@ -214,7 +214,7 @@ export const WidgetCompact = observer(({ machine, instruments, initialBpm, autop
   return (
     <div className="beat-widget">
       <div className="widgetContent">
-        <button 
+        <button
           className={`playButton ${isPlaying ? 'playing' : ''}`}
           onClick={togglePlay}
           disabled={!engine}
@@ -230,7 +230,7 @@ export const WidgetCompact = observer(({ machine, instruments, initialBpm, autop
             </svg>
           )}
         </button>
-        
+
         <div className="bpmControl">
           <label className="bpmLabel">
             {machine.bpm} BPM
@@ -246,7 +246,7 @@ export const WidgetCompact = observer(({ machine, instruments, initialBpm, autop
           />
         </div>
       </div>
-      
+
       <div className="footer">
         <a href="https://beat.salsanor.no" target="_blank" rel="noopener noreferrer">
           Powered by SalsaNor Beat

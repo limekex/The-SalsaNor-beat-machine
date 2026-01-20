@@ -29,7 +29,7 @@ export class AudioBackend {
     if (this._context) {
       this.zeroTime = this._context.currentTime;
       console.log('🎵 AudioBackend initialized — zeroTime set to:', this.zeroTime);
-      
+
       // Load audio files after context is initialized
       try {
         await Promise.all([

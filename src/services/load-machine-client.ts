@@ -18,24 +18,24 @@ export function getWidgetBaseUrl(): string {
  */
 export async function loadMachineClient(machineNameOrPath: string): Promise<IMachine> {
   // If it's just a name, construct the full path
-  let url = machineNameOrPath.endsWith('.xml') 
+  let url = machineNameOrPath.endsWith('.xml')
     ? `/assets/machines/${machineNameOrPath}`
     : `/assets/machines/${machineNameOrPath}.xml`;
-  
+
   // Prepend base URL if configured (for cross-domain usage)
   if (widgetBaseUrl) {
     url = `${widgetBaseUrl}${url}`;
   }
-  
+
   const response = await fetch(url);
-  
+
   if (!response.ok) {
     throw new Error(`Failed to load machine from ${url}: ${response.statusText}`);
   }
-  
+
   const machineXml = await response.text();
   const xml = new DOMParser().parseFromString(machineXml, 'text/xml');
   const loader = new MachineXMLLoader();
-  
+
   return loader.loadMachine(xml);
 }

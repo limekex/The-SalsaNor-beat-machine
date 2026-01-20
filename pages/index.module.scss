@@ -3,7 +3,7 @@
 .homepage {
   min-height: 100vh;
   padding: 1rem; // $spacing-4
-  
+
   @include respond-to('desktop') {
     padding: 1.5rem; // $spacing-6
   }
@@ -56,13 +56,13 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  
+
   &:hover {
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(0, 245, 255, 0.3));
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
   }
-  
+
   @include respond-to('mobile') {
     bottom: 1rem;
     right: 1rem;
@@ -78,7 +78,7 @@
   color: rgba(255, 255, 255, 0.6);
   font-size: 0.875rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  
+
   p {
     margin: 0;
   }
@@ -88,7 +88,7 @@
   color: rgba(0, 245, 255, 0.8);
   text-decoration: none;
   transition: color 0.2s ease;
-  
+
   &:hover {
     color: rgba(0, 245, 255, 1);
     text-decoration: underline;

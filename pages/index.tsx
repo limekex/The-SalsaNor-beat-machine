@@ -41,26 +41,26 @@ export default function Home({ machines }: IHomeProps) {
         <div className={styles.appContainer}>
           <BeatMachineUIGlass machines={machines} />
         </div>
-        
+
         <a href="/widget-generator" className={styles.widgetLink}>
           🛠️ Widget Generator
         </a>
-        
+
         <footer className={styles.footer}>
           <p>
             Based on the original{' '}
-            <a 
-              href="https://github.com/urish/beat-machine" 
-              target="_blank" 
+            <a
+              href="https://github.com/urish/beat-machine"
+              target="_blank"
               rel="noopener noreferrer"
               className={styles.footerLink}
             >
               Beat Machine
             </a>
             {' '}by{' '}
-            <a 
-              href="https://github.com/urish" 
-              target="_blank" 
+            <a
+              href="https://github.com/urish"
+              target="_blank"
               rel="noopener noreferrer"
               className={styles.footerLink}
             >

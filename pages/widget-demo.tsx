@@ -18,11 +18,11 @@ export default function WidgetDemo() {
   // Create observable copies with filtered instruments and custom BPM
   const createFilteredMachine = (instruments: string[], bpm: number): IMachine | null => {
     if (!salsaMachine) return null;
-    
+
     return observable({
       ...salsaMachine,
       bpm,
-      instruments: salsaMachine.instruments.map(inst => 
+      instruments: salsaMachine.instruments.map(inst =>
         observable({
           ...inst,
           enabled: instruments.includes(inst.id)

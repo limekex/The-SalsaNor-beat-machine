@@ -13,33 +13,33 @@
   gap: 0.5rem; // $spacing-2
   @include smooth-transition(all, 0.2s, ease);
   @include focus-visible;
-  
+
   &--primary {
     background: linear-gradient(135deg, #FFC947, #FF9933);
     color: rgba(255, 255, 255, 0.95);
     box-shadow: 0 4px 15px rgba(255, 153, 51, 0.4);
-    
+
     &:hover:not(:disabled) {
       transform: translateY(-2px) scale(1.02);
       box-shadow: 0 0 30px rgba(255, 201, 71, 0.7);
     }
-    
+
     &:active {
       transform: translateY(0) scale(0.98);
     }
   }
-  
+
   &--ghost {
     background: transparent;
     border: 1px solid rgba(255, 153, 51, 0.3);
     color: rgba(255, 255, 255, 0.95);
-    
+
     &:hover:not(:disabled) {
       background: rgba(255, 153, 51, 0.15);
       border-color: rgba(255, 201, 71, 0.5);
     }
   }
-  
+
   &--icon {
     width: 36px;
     height: 36px;
@@ -48,18 +48,18 @@
     background: rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.95);
     justify-content: center;
-    
+
     &:hover:not(:disabled) {
       background: rgba(255, 255, 255, 0.2);
       transform: scale(1.1);
     }
-    
+
     &.active {
       background: #FFC947;
       color: #0f0c29;
     }
   }
-  
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -69,7 +69,7 @@
 .icon {
   display: flex;
   align-items: center;
-  
+
   svg {
     width: 20px;
     height: 20px;

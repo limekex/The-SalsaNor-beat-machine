@@ -147,15 +147,15 @@ class BeatMachineWidget {
   async init(selector: string = '[data-beat-widget]') {
     // Inject CSS first
     injectWidgetCSS();
-    
+
     const elements = document.querySelectorAll(selector);
-    
+
     // Convert NodeList to Array to avoid iteration issues
     const elementsArray = Array.from(elements);
-    
+
     for (const element of elementsArray) {
       if (!(element instanceof HTMLElement)) continue;
-      
+
       const config = this.parseConfig(element);
       await this.create(element, config);
     }
@@ -166,7 +166,7 @@ class BeatMachineWidget {
     const bpm = element.dataset.bpm ? parseInt(element.dataset.bpm, 10) : 120;
     const machine = (element.dataset.machine || 'salsa') as 'salsa' | 'merengue';
     const autoplay = element.dataset.autoplay === 'true';
-    
+
     // Parse programs: data-programs="clave:1,cowbell:2"
     const programs: Record<string, number> = {};
     if (element.dataset.programs) {
@@ -204,7 +204,7 @@ class BeatMachineWidget {
 
     // Create React root
     const root = ReactDOM.createRoot(element);
-    
+
     // Create instance API
     const instance: WidgetInstance = {
       play: () => {
@@ -228,7 +228,7 @@ class BeatMachineWidget {
     // Render widget
     root.render(
       <React.StrictMode>
-        <WidgetCompact 
+        <WidgetCompact
           machine={machine}
           instruments={config.instruments}
           initialBpm={config.bpm}

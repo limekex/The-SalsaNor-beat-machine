@@ -31,7 +31,7 @@
   background: rgba(255, 255, 255, 0.2);
   border-radius: 9999px; // $radius-full
   outline: none;
-  
+
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -42,13 +42,13 @@
     cursor: pointer;
     box-shadow: 0 0 10px rgba(255, 201, 71, 0.5);
     transition: all 0.2s ease;
-    
+
     &:hover {
       transform: scale(1.2);
       box-shadow: 0 0 20px rgba(255, 201, 71, 0.8);
     }
   }
-  
+
   &::-moz-range-thumb {
     width: 16px;
     height: 16px;

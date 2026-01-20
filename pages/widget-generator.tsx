@@ -50,7 +50,7 @@ export default function WidgetGenerator({ salsaInstruments, merengueInstruments 
   }, [currentMachine, selectedInstruments, bpm, instrumentPrograms]);
 
   const toggleInstrument = (instrumentId: string) => {
-    setSelectedInstruments(prev => 
+    setSelectedInstruments(prev =>
       prev.includes(instrumentId)
         ? prev.filter(id => id !== instrumentId)
         : [...prev, instrumentId]
@@ -78,13 +78,13 @@ export default function WidgetGenerator({ salsaInstruments, merengueInstruments 
 
   const generateCode = () => {
     const instruments = selectedInstruments.join(',');
-    
+
     // Generate programs string: "clave:1,cowbell:2"
     const programsArray = Object.entries(instrumentPrograms)
       .filter(([instrumentId, _]) => selectedInstruments.includes(instrumentId))
       .map(([instrumentId, programIndex]) => `${instrumentId}:${programIndex}`);
     const programsString = programsArray.length > 0 ? programsArray.join(',') : '';
-    
+
     const attrs = [
       'data-beat-widget',
       selectedInstruments.length > 0 ? `data-instruments="${instruments}"` : '',
@@ -99,7 +99,7 @@ export default function WidgetGenerator({ salsaInstruments, merengueInstruments 
 
   const generateFullHTML = () => {
     const widgetCode = generateCode();
-    
+
     // Generate installation instructions with proper structure
     return `<!-- Add this code just below <body> tag (only once per page) -->
 <script>
@@ -188,7 +188,7 @@ ${widgetCode}`;
                   const instrument = getInstrumentFromMachine(instrumentId);
                   const hasMultiplePrograms = instrument && instrument.programs.length > 1;
                   const selectedProgram = instrumentPrograms[instrumentId] ?? instrument?.activeProgram ?? 0;
-                  
+
                   return (
                     <div key={instrumentId} className={styles.instrumentItem}>
                       <label className={styles.checkbox}>
@@ -199,9 +199,9 @@ ${widgetCode}`;
                         />
                         <span className={styles.instrumentName}>{instrument?.title || instrumentId}</span>
                       </label>
-                      
+
                       {hasMultiplePrograms && selectedInstruments.includes(instrumentId) && (
-                        <select 
+                        <select
                           value={selectedProgram}
                           onChange={(e) => setInstrumentProgram(instrumentId, parseInt(e.target.value))}
                           className={styles.programSelect}
@@ -275,7 +275,7 @@ ${widgetCode}`;
             <section className={styles.section}>
               <div className={styles.codeHeader}>
                 <h2>Step 1: Add this code just below &lt;body&gt; tag (once per page)</h2>
-                <button 
+                <button
                   onClick={() => copyToClipboard(generateFullHTML())}
                   className={styles.copyButton}
                 >
@@ -292,7 +292,7 @@ ${widgetCode}`;
             <section className={styles.section}>
               <div className={styles.codeHeader}>
                 <h2>Step 2: Add widget(s) anywhere in your content</h2>
-                <button 
+                <button
                   onClick={() => copyToClipboard(generateCode())}
                   className={styles.copyButton}
                 >
@@ -324,7 +324,7 @@ export const getStaticProps: GetStaticProps<IWidgetGeneratorProps> = async () =>
   try {
     const salsa = await loadMachine('salsa.xml');
     const merengue = await loadMachine('merengue.xml');
-    
+
     return {
       props: {
         salsaInstruments: salsa.instruments.map((i: any) => i.id),

@@ -4,22 +4,22 @@
   @include glass-light;
   border-radius: 0.75rem; // $radius-lg
   padding: 1.5rem; // $spacing-6
-  
+
   &--light {
     @include glass-light;
   }
-  
+
   &--medium {
     @include glass-medium;
   }
-  
+
   &--dark {
     @include glass-dark;
   }
-  
+
   &--hover {
     @include hover-lift;
-    
+
     &:hover {
       background: rgba(255, 153, 51, 0.15);
       border-color: rgba(255, 201, 71, 0.3);

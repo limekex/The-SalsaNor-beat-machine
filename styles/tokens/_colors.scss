@@ -118,7 +118,7 @@ $border-accent: rgba(255, 153, 51, 0.5);   // Primary orange
   --bg-color-dark: #{$bg-color-dark};
   --bg-color-mid: #{$bg-color-mid};
   --bg-color-light: #{$bg-color-light};
-  
+
   // Glass material
   --glass-opacity-light: #{$glass-opacity-light};
   --glass-opacity-medium: #{$glass-opacity-medium};
@@ -129,7 +129,7 @@ $border-accent: rgba(255, 153, 51, 0.5);   // Primary orange
   --glass-border-opacity-light: #{$glass-border-opacity-light};
   --glass-border-opacity-medium: #{$glass-border-opacity-medium};
   --glass-border-opacity-dark: #{$glass-border-opacity-dark};
-  
+
   // Primary brand colors
   --color-primary: #{$color-primary};
   --color-primary-light: #{$color-primary-light};
@@ -141,12 +141,12 @@ $border-accent: rgba(255, 153, 51, 0.5);   // Primary orange
   --color-coral-light: #{$color-coral-light};
   --color-coral-dark: #{$color-coral-dark};
   --color-accent-cool: #{$color-accent-cool};
-  
+
   // Gradients
   --gradient-primary: #{$gradient-primary};
   --gradient-warm: #{$gradient-warm};
   --gradient-bright: #{$gradient-bright};
-  
+
   // Semantic colors
   --color-success: #{$color-success};
   --color-success-light: #{$color-success-light};
@@ -160,7 +160,7 @@ $border-accent: rgba(255, 153, 51, 0.5);   // Primary orange
   --color-info: #{$color-info};
   --color-info-light: #{$color-info-light};
   --color-info-dark: #{$color-info-dark};
-  
+
   // Interactive states
   --hover-bg-opacity: #{$hover-bg-opacity};
   --hover-border-opacity: #{$hover-border-opacity};
@@ -170,13 +170,13 @@ $border-accent: rgba(255, 153, 51, 0.5);   // Primary orange
   --focus-ring-width: #{$focus-ring-width};
   --focus-ring-offset: #{$focus-ring-offset};
   --disabled-opacity: #{$disabled-opacity};
-  
+
   // Text colors
   --text-primary: #{$text-primary};
   --text-secondary: #{$text-secondary};
   --text-muted: #{$text-muted};
   --text-disabled: #{$text-disabled};
-  
+
   // Border colors
   --border-default: #{$border-default};
   --border-hover: #{$border-hover};
