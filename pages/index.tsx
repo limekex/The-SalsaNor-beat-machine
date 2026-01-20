@@ -1,9 +1,8 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { useState } from 'react';
-import { BeatMachineUI, IDefaultMachines } from '../components/beat-machine-ui';
 import { BeatMachineUIGlass } from '../components/beat-machine-ui-glass';
 import { loadMachine } from '../services/load-machine';
+import type { IDefaultMachines } from '../components/beat-machine-ui';
 import styles from './index.module.scss';
 
 interface IHomeProps {
@@ -11,8 +10,6 @@ interface IHomeProps {
 }
 
 export default function Home({ machines }: IHomeProps) {
-  const [useGlassUI, setUseGlassUI] = useState(true);
-
   return (
     <>
       <Head>
@@ -21,7 +18,7 @@ export default function Home({ machines }: IHomeProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#667eea" />
+        <meta name="theme-color" content="#FF9933" />
         <meta
           name="description"
           content="Explore Salsa music with an interactive rhythm machine. Practice Salsa timing and train your ears. Combine and arrange instruments to create different salsa tunes."
@@ -42,20 +39,35 @@ export default function Home({ machines }: IHomeProps) {
         <h1 className={styles.title}>🎵 The SalsaNor Beat Machine</h1>
 
         <div className={styles.appContainer}>
-          {useGlassUI ? (
-            <BeatMachineUIGlass machines={machines} />
-          ) : (
-            <BeatMachineUI machines={machines} />
-          )}
+          <BeatMachineUIGlass machines={machines} />
         </div>
         
-        <button 
-          onClick={() => setUseGlassUI(!useGlassUI)}
-          className={styles.uiToggle}
-          title={`Switch to ${useGlassUI ? 'Classic' : 'Glass'} UI`}
-        >
-          {useGlassUI ? '🎨 Classic UI' : '✨ Glass UI'}
-        </button>
+        <a href="/widget-generator" className={styles.widgetLink}>
+          🛠️ Widget Generator
+        </a>
+        
+        <footer className={styles.footer}>
+          <p>
+            Based on the original{' '}
+            <a 
+              href="https://github.com/urish/beat-machine" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={styles.footerLink}
+            >
+              Beat Machine
+            </a>
+            {' '}by{' '}
+            <a 
+              href="https://github.com/urish" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={styles.footerLink}
+            >
+              Uri Shaked
+            </a>
+          </p>
+        </footer>
       </main>
     </>
   );

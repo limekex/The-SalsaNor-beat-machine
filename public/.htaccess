@@ -1,0 +1,182 @@
+# ======================================================================
+# SalsaNor Beat Machine - Apache Configuration
+# For deployment to shared hosting (ProISP, etc.)
+# ======================================================================
+
+# ----------------------------------------------------------------------
+# CORS Headers - Required for cross-domain widget embedding
+# ----------------------------------------------------------------------
+<IfModule mod_headers.c>
+    # Allow all domains to embed the widget
+    Header set Access-Control-Allow-Origin "*"
+    
+    # Allow specific methods
+    Header set Access-Control-Allow-Methods "GET, OPTIONS"
+    
+    # Allow specific headers
+    Header set Access-Control-Allow-Headers "Content-Type, Accept"
+    
+    # Cache preflight requests for 1 day
+    Header set Access-Control-Max-Age "86400"
+</IfModule>
+
+# ----------------------------------------------------------------------
+# MIME Types - Ensure correct content types for audio files
+# ----------------------------------------------------------------------
+<IfModule mod_mime.c>
+    # Audio formats
+    AddType audio/webm .webm
+    AddType audio/mpeg .mp3
+    AddType audio/mp4 .m4a
+    
+    # Web formats
+    AddType application/javascript .js
+    AddType application/json .json
+    AddType text/css .css
+    AddType text/html .html
+    
+    # Image formats
+    AddType image/svg+xml .svg
+    AddType image/webp .webp
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Compression - Reduce bandwidth usage
+# ----------------------------------------------------------------------
+<IfModule mod_deflate.c>
+    # Compress HTML, CSS, JavaScript, JSON
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE image/svg+xml
+    
+    # Don't compress already-compressed formats
+    SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|webp|mp3|webm|m4a)$ no-gzip
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Caching - Optimize load times
+# ----------------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 day"
+    
+    # Audio files - cache for 1 year (change infrequently)
+    ExpiresByType audio/webm "access plus 1 year"
+    ExpiresByType audio/mpeg "access plus 1 year"
+    ExpiresByType audio/mp4 "access plus 1 year"
+    
+    # Images - cache for 1 year
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    
+    # JSON data - cache for 1 week
+    ExpiresByType application/json "access plus 1 week"
+    
+    # CSS and JavaScript - cache for 1 month
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    
+    # HTML - cache for 1 hour
+    ExpiresByType text/html "access plus 1 hour"
+    
+    # Manifest and XML - cache for 1 week
+    ExpiresByType application/manifest+json "access plus 1 week"
+    ExpiresByType text/xml "access plus 1 week"
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Cache-Control Headers
+# ----------------------------------------------------------------------
+<IfModule mod_headers.c>
+    # Audio files - immutable, long cache
+    <FilesMatch "\.(webm|mp3|m4a)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    
+    # Images - long cache
+    <FilesMatch "\.(jpg|jpeg|png|gif|svg|webp|ico)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    
+    # JavaScript and CSS - long cache with version query params for cache busting
+    <FilesMatch "\.(js|css)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    
+    # HTML - short cache, must revalidate
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "public, max-age=3600, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Security Headers
+# ----------------------------------------------------------------------
+<IfModule mod_headers.c>
+    # Prevent MIME type sniffing
+    Header set X-Content-Type-Options "nosniff"
+    
+    # Enable XSS protection
+    Header set X-XSS-Protection "1; mode=block"
+    
+    # Prevent clickjacking (allow iframes from same origin)
+    Header set X-Frame-Options "SAMEORIGIN"
+    
+    # Referrer policy
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ----------------------------------------------------------------------
+# URL Rewriting - For Single Page Application routing
+# ----------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    
+    # If requesting a directory, serve index.html
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^(.*)$ $1/index.html [L]
+    
+    # Don't rewrite if file exists
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Rewrite everything else to index.html for client-side routing
+    # Comment out if not using client-side routing
+    # RewriteRule . /index.html [L]
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Error Pages (Optional)
+# ----------------------------------------------------------------------
+# ErrorDocument 404 /404.html
+# ErrorDocument 500 /500.html
+
+# ----------------------------------------------------------------------
+# Disable Directory Browsing
+# ----------------------------------------------------------------------
+Options -Indexes
+
+# ----------------------------------------------------------------------
+# Force HTTPS (Uncomment when SSL certificate is installed)
+# ----------------------------------------------------------------------
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTPS} off
+#     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>
+
+# ----------------------------------------------------------------------
+# Performance - Keep-Alive
+# ----------------------------------------------------------------------
+<IfModule mod_headers.c>
+    Header set Connection keep-alive
+</IfModule>

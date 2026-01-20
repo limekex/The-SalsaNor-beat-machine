@@ -72,9 +72,9 @@
 }
 
 .tools .active {
-  color: #00f5ff;
-  background: rgba(0, 245, 255, 0.2);
-  box-shadow: 0 0 12px rgba(0, 245, 255, 0.4);
+  color: #FFC947;
+  background: rgba(255, 201, 71, 0.2);
+  box-shadow: 0 0 12px rgba(255, 201, 71, 0.4);
 }
 
 .instrumentLabel {
@@ -108,7 +108,7 @@
 }
 
 .settingsPanel :global(.MuiSlider-root) {
-  color: #00f5ff;
+  color: #FFC947;
 }
 
 .settingsPanel :global(.MuiSelect-root) {

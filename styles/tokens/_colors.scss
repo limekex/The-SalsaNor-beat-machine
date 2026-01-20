@@ -1,14 +1,16 @@
 // ============================================
 // Color Design Tokens
-// SalsaNor Beat Machine - Glassmorphic Theme
+// SalsaNor Beat Machine - SalsaNor Brand Colors
+// Based on SalsaNor logo gradient palette
 // ============================================
 
 // ====== Background Gradients ======
 
-$bg-gradient-cosmic: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-$bg-color-dark: #0f0c29;
-$bg-color-mid: #302b63;
-$bg-color-light: #24243e;
+// Dark base with subtle warmth to complement orange accents
+$bg-gradient-cosmic: linear-gradient(135deg, #1a1410 0%, #2d1f1a 50%, #221814 100%);
+$bg-color-dark: #1a1410;
+$bg-color-mid: #2d1f1a;
+$bg-color-light: #221814;
 
 // ====== Glass Material Colors ======
 
@@ -27,48 +29,52 @@ $glass-border-opacity-light: 0.15;
 $glass-border-opacity-medium: 0.2;
 $glass-border-opacity-dark: 0.25;
 
-// ====== Accent Colors ======
+// ====== Primary Brand Colors (from SalsaNor Logo) ======
 
-// Primary Purple
-$color-primary: #667eea;
-$color-primary-light: #8b9fef;
-$color-primary-dark: #4d5ed7;
+// Primary Orange - main brand color
+$color-primary: #FF9933;
+$color-primary-light: #FFB347;
+$color-primary-dark: #E17856;
 
-// Cyan
-$color-cyan: #00f5ff;
-$color-cyan-light: #4dfbff;
-$color-cyan-dark: #00c7d4;
+// Golden Yellow - bright accent from logo
+$color-golden: #FFC947;
+$color-golden-light: #FFD966;
+$color-golden-dark: #E6A500;
 
-// Pink
-$color-pink: #f093fb;
-$color-pink-light: #f5b5fc;
-$color-pink-dark: #e76af0;
+// Coral/Peach - warm secondary from logo
+$color-coral: #FF8C69;
+$color-coral-light: #FFA885;
+$color-coral-dark: #E07856;
 
-// Purple accent
-$color-purple-accent: #764ba2;
+// Complementary accent (cool contrast to warm palette)
+$color-accent-cool: #4A90E2;
 
-// Gradient accents
-$gradient-primary: linear-gradient(135deg, $color-primary 0%, $color-purple-accent 100%);
-$gradient-cyan-purple: linear-gradient(135deg, $color-cyan 0%, $color-primary 100%);
-$gradient-pink-purple: linear-gradient(135deg, $color-pink 0%, $color-primary 100%);
+// Gradient accents based on logo
+$gradient-primary: linear-gradient(135deg, $color-golden 0%, $color-primary 50%, $color-coral 100%);
+$gradient-warm: linear-gradient(135deg, $color-primary 0%, $color-coral 100%);
+$gradient-bright: linear-gradient(135deg, $color-golden 0%, $color-primary 100%);
 
 // ====== Semantic Colors ======
 
+// Success - keeping green as it's universal
 $color-success: #10b981;
 $color-success-light: #34d399;
 $color-success-dark: #059669;
 
-$color-warning: #f59e0b;
-$color-warning-light: #fbbf24;
-$color-warning-dark: #d97706;
+// Warning - using golden yellow from brand
+$color-warning: $color-golden;
+$color-warning-light: $color-golden-light;
+$color-warning-dark: $color-golden-dark;
 
-$color-error: #ef4444;
-$color-error-light: #f87171;
-$color-error-dark: #dc2626;
+// Error - warm red that complements orange palette
+$color-error: #E74C3C;
+$color-error-light: #EC7063;
+$color-error-dark: #C0392B;
 
-$color-info: #3b82f6;
-$color-info-light: #60a5fa;
-$color-info-dark: #2563eb;
+// Info - using cool accent for contrast
+$color-info: $color-accent-cool;
+$color-info-light: #73B3F5;
+$color-info-dark: #2471C9;
 
 // ====== Interactive State Colors ======
 
@@ -81,9 +87,9 @@ $hover-lift: -2px;
 $active-bg-opacity: 0.3;
 $active-scale: 0.98;
 
-// Focus states
-$focus-color: $color-cyan;
-$focus-ring-opacity: 0.2;
+// Focus states - using golden yellow for visibility
+$focus-color: $color-golden;
+$focus-ring-opacity: 0.3;
 $focus-ring-width: 2px;
 $focus-ring-offset: 2px;
 
@@ -99,10 +105,10 @@ $text-disabled: rgba(255, 255, 255, 0.3);
 
 // ====== Border Colors ======
 
-$border-default: rgba(255, 255, 255, 0.15);
-$border-hover: rgba(255, 255, 255, 0.3);
-$border-focus: $color-cyan;
-$border-accent: rgba(102, 126, 234, 0.5);
+$border-default: rgba(255, 153, 51, 0.15); // Subtle orange tint
+$border-hover: rgba(255, 201, 71, 0.3);    // Golden on hover
+$border-focus: $color-golden;
+$border-accent: rgba(255, 153, 51, 0.5);   // Primary orange
 
 // ====== Export as CSS Custom Properties ======
 
@@ -124,22 +130,22 @@ $border-accent: rgba(102, 126, 234, 0.5);
   --glass-border-opacity-medium: #{$glass-border-opacity-medium};
   --glass-border-opacity-dark: #{$glass-border-opacity-dark};
   
-  // Accent colors
+  // Primary brand colors
   --color-primary: #{$color-primary};
   --color-primary-light: #{$color-primary-light};
   --color-primary-dark: #{$color-primary-dark};
-  --color-cyan: #{$color-cyan};
-  --color-cyan-light: #{$color-cyan-light};
-  --color-cyan-dark: #{$color-cyan-dark};
-  --color-pink: #{$color-pink};
-  --color-pink-light: #{$color-pink-light};
-  --color-pink-dark: #{$color-pink-dark};
-  --color-purple-accent: #{$color-purple-accent};
+  --color-golden: #{$color-golden};
+  --color-golden-light: #{$color-golden-light};
+  --color-golden-dark: #{$color-golden-dark};
+  --color-coral: #{$color-coral};
+  --color-coral-light: #{$color-coral-light};
+  --color-coral-dark: #{$color-coral-dark};
+  --color-accent-cool: #{$color-accent-cool};
   
   // Gradients
   --gradient-primary: #{$gradient-primary};
-  --gradient-cyan-purple: #{$gradient-cyan-purple};
-  --gradient-pink-purple: #{$gradient-pink-purple};
+  --gradient-warm: #{$gradient-warm};
+  --gradient-bright: #{$gradient-bright};
   
   // Semantic colors
   --color-success: #{$color-success};

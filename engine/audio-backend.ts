@@ -12,10 +12,11 @@ export class AudioBackend {
   private _context?: AudioContext;
   private audioFormat: string;
 
-  constructor() {
+  constructor(private baseUrl: string = '') {
     this.ready = false;
     const hasWebM = typeof MediaSource !== 'undefined' && MediaSource.isTypeSupported('audio/webm;codecs="vorbis"');
-    this.audioFormat = hasWebM ? 'assets/audio/main.webm' : 'assets/audio/main.mp3';
+    const audioPath = hasWebM ? '/assets/audio/main.webm' : '/assets/audio/main.mp3';
+    this.audioFormat = baseUrl ? `${baseUrl}/${audioPath}` : audioPath;
     console.log('AudioBackend created - will load audio after init()');
   }
 
@@ -33,7 +34,7 @@ export class AudioBackend {
       try {
         await Promise.all([
           this.loadBank(this.audioFormat),
-          this.loadBankDescriptor('assets/audio/main.json')
+          this.loadBankDescriptor('/assets/audio/main.json')
         ]);
         console.log('✅ Audio files loaded successfully');
       } catch (error) {
@@ -74,10 +75,12 @@ export class AudioBackend {
 
   private async loadBankDescriptor(url: string) {
     try {
-      console.log('Loading bank descriptor from:', url);
-      const req = await fetch(url);
+      // Prepend base URL if configured
+      const fullUrl = this.baseUrl && !url.startsWith('http') ? `${this.baseUrl}/${url}` : url;
+      console.log('Loading bank descriptor from:', fullUrl);
+      const req = await fetch(fullUrl);
       if (!req.ok) {
-        throw new Error(`Failed to fetch ${url}: ${req.status} ${req.statusText}`);
+        throw new Error(`Failed to fetch ${fullUrl}: ${req.status} ${req.statusText}`);
       }
       this.bankDescriptor = await req.json();
       console.log('✅ Bank descriptor loaded successfully');

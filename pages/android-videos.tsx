@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import styles from './android-videos.module.css';
-import videos from '../public/assets/timing-videos.json';
+
+const videos = { data: [] as Array<{ id: string; youtube_id: string; thumbnail_url: string; title: string }> };
 
 export default function AndroidVideos() {
   return (

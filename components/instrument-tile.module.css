@@ -60,8 +60,8 @@
 }
 
 .tools .active {
-  color: #00f5ff;
-  background: rgba(0, 245, 255, 0.2);
+  color: #FFC947;
+  background: rgba(255, 201, 71, 0.2);
 }
 
 .instrumentLabel {

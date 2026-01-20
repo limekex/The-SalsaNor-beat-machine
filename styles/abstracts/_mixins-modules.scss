@@ -67,7 +67,7 @@ $breakpoints: (
 
 @mixin focus-visible {
   &:focus-visible {
-    outline: 2px solid #00f5ff;
+    outline: 2px solid #FFC947;
     outline-offset: 2px;
     box-shadow: 0 0 0 4px rgba(0, 245, 255, 0.2);
   }

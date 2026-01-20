@@ -19,7 +19,7 @@
 
 .value {
   font-size: clamp(0.75rem, 0.5vw + 0.25rem, 0.875rem);
-  color: #00f5ff;
+  color: #FFC947;
   font-weight: 600;
 }
 
@@ -38,14 +38,14 @@
     width: 16px;
     height: 16px;
     border-radius: 9999px;
-    background: linear-gradient(135deg, #00f5ff, #667eea);
+    background: linear-gradient(135deg, #FFC947, #FF9933);
     cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+    box-shadow: 0 0 10px rgba(255, 201, 71, 0.5);
     transition: all 0.2s ease;
     
     &:hover {
       transform: scale(1.2);
-      box-shadow: 0 0 20px rgba(0, 245, 255, 0.8);
+      box-shadow: 0 0 20px rgba(255, 201, 71, 0.8);
     }
   }
   
@@ -53,9 +53,9 @@
     width: 16px;
     height: 16px;
     border-radius: 9999px;
-    background: linear-gradient(135deg, #00f5ff, #667eea);
+    background: linear-gradient(135deg, #FFC947, #FF9933);
     cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+    box-shadow: 0 0 10px rgba(255, 201, 71, 0.5);
     border: none;
   }
 }
