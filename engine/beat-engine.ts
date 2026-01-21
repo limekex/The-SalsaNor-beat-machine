@@ -174,20 +174,31 @@ export class BeatEngine {
             pitch += this.machine.keyNote;
           }
           if (note.hand !== 'left') {
+            const baseSampleName = instrument.id + '-' + (pitch + instrument.pitchOffset);
+            const sampleName = (instrument.language && instrument.id === 'instructor')
+              ? `${instrument.language}:${baseSampleName}`
+              : baseSampleName;
+            
             result.push({
-              sampleName: instrument.id + '-' + (pitch + instrument.pitchOffset),
+              sampleName,
               velocity: note.velocity,
             });
             if (note.pianoTonic) {
+              const tonicSampleName = instrument.id + '-' + (pitch + instrument.pitchOffset + 12);
               result.push({
-                sampleName: instrument.id + '-' + (pitch + instrument.pitchOffset + 12),
+                sampleName: (instrument.language && instrument.id === 'instructor')
+                  ? `${instrument.language}:${tonicSampleName}`
+                  : tonicSampleName,
                 velocity: note.velocity,
               });
             }
           }
           if (instrument.playBothHands && note.hand !== 'right') {
+            const leftHandSampleName = instrument.id + '-' + (pitch + instrument.leftHandPitchOffset);
             result.push({
-              sampleName: instrument.id + '-' + (pitch + instrument.leftHandPitchOffset),
+              sampleName: (instrument.language && instrument.id === 'instructor')
+                ? `${instrument.language}:${leftHandSampleName}`
+                : leftHandSampleName,
               velocity: note.velocity,
             });
           }

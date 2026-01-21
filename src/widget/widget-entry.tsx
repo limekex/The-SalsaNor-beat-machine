@@ -166,6 +166,7 @@ class BeatMachineWidget {
     const bpm = element.dataset.bpm ? parseInt(element.dataset.bpm, 10) : 120;
     const machine = (element.dataset.machine || 'salsa') as 'salsa' | 'merengue';
     const autoplay = element.dataset.autoplay === 'true';
+    const instructorLanguage = element.dataset.instructorLanguage as 'italian' | 'spanish' | 'french' | 'russian' | 'german' | undefined;
 
     // Parse programs: data-programs="clave:1,cowbell:2"
     const programs: Record<string, number> = {};
@@ -179,7 +180,7 @@ class BeatMachineWidget {
       });
     }
 
-    return { instruments, programs, bpm, machine, autoplay };
+    return { instruments, programs, bpm, machine, autoplay, instructorLanguage };
   }
 
   async create(element: HTMLElement, config: WidgetConfig): Promise<WidgetInstance> {
@@ -200,6 +201,14 @@ class BeatMachineWidget {
           instrument.activeProgram = config.programs![instrument.id];
         }
       });
+    }
+
+    // Set instructor language if specified
+    if (config.instructorLanguage) {
+      const instructor = machine.instruments.find(i => i.id === 'instructor');
+      if (instructor) {
+        instructor.language = config.instructorLanguage;
+      }
     }
 
     // Create React root

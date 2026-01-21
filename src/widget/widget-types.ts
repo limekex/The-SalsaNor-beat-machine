@@ -4,6 +4,7 @@ export interface WidgetConfig {
   bpm?: number;
   machine?: 'salsa' | 'merengue';
   autoplay?: boolean;
+  instructorLanguage?: 'italian' | 'spanish' | 'french' | 'russian' | 'german';
 }
 
 export interface WidgetInstance {
