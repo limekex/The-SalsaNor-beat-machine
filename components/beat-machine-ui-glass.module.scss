@@ -64,6 +64,51 @@
   }
 }
 
+.languageSelect {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  @include respond-to('mobile') {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.languageLabel {
+  font-size: 1.125rem;
+}
+
+.languageDropdown {
+  background: transparent;
+  color: var(--text-primary);
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &:focus {
+    outline: 2px solid var(--color-golden);
+    outline-offset: 2px;
+  }
+
+  option {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+  }
+}
+
 .beatIndicator {
   display: flex;
   justify-content: center;

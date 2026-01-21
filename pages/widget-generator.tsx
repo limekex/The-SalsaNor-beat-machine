@@ -25,6 +25,7 @@ export default function WidgetGenerator({ salsaInstruments, merengueInstruments 
   const [bpm, setBpm] = useState(120);
   const [autoplay, setAutoplay] = useState(false);
   const [baseUrl, setBaseUrl] = useState('https://beat.salsanor.no');
+  const [instructorLanguage, setInstructorLanguage] = useState<string>('');
   const [copied, setCopied] = useState(false);
 
   const salsaMachine = useMachine('/assets/machines/salsa.xml');
@@ -43,11 +44,12 @@ export default function WidgetGenerator({ salsaInstruments, merengueInstruments 
         return observable({
           ...inst,
           enabled: selectedInstruments.includes(inst.id),
-          activeProgram: programIndex
+          activeProgram: programIndex,
+          language: inst.id === 'instructor' && instructorLanguage ? instructorLanguage : undefined
         });
       })
     });
-  }, [currentMachine, selectedInstruments, bpm, instrumentPrograms]);
+  }, [currentMachine, selectedInstruments, bpm, instrumentPrograms, instructorLanguage]);
 
   const toggleInstrument = (instrumentId: string) => {
     setSelectedInstruments(prev =>
@@ -92,6 +94,7 @@ export default function WidgetGenerator({ salsaInstruments, merengueInstruments 
       bpm !== 120 ? `data-bpm="${bpm}"` : '',
       machineType !== 'salsa' ? `data-machine="${machineType}"` : '',
       autoplay ? `data-autoplay="true"` : '',
+      instructorLanguage && selectedInstruments.includes('instructor') ? `data-instructor-language="${instructorLanguage}"` : '',
     ].filter(Boolean).join(' ');
 
     return `<div ${attrs}></div>`;
@@ -245,6 +248,27 @@ ${widgetCode}`;
                 <span>Autoplay (starts automatically)</span>
               </label>
             </section>
+
+            {selectedInstruments.includes('instructor') && (
+              <section className={styles.section}>
+                <h2>Instructor Language</h2>
+                <select
+                  value={instructorLanguage}
+                  onChange={(e) => setInstructorLanguage(e.target.value)}
+                  className={styles.programSelect}
+                >
+                  <option value="">English (default)</option>
+                  <option value="italian">🇮🇹 Italian</option>
+                  <option value="spanish">🇪🇸 Spanish</option>
+                  <option value="french">🇫🇷 French</option>
+                  <option value="russian">🇷🇺 Russian</option>
+                  <option value="german">🇩🇪 German</option>
+                </select>
+                <p className={styles.help}>
+                  Language for counting beats (1, 2, 3, etc.)
+                </p>
+              </section>
+            )}
 
             <section className={styles.section}>
               <h2>Base URL (for cross-domain)</h2>

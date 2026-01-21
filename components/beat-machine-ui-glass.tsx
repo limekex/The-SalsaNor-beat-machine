@@ -22,6 +22,24 @@ export const BeatMachineUIGlass = observer(({ machines }: IBeatMachineUIGlassPro
   const { salsa, merengue } = machines;
   const engine = useBeatEngine();
   const [machine, setMachine] = useState(observable(salsa));
+  const [instructorLanguage, setInstructorLanguage] = useState<string>('');
+
+  // Load language preference from localStorage on mount
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('beat-machine-instructor-lang');
+    if (savedLanguage) {
+      setInstructorLanguage(savedLanguage);
+    }
+  }, []);
+
+  // Apply language to instructor when it changes
+  useEffect(() => {
+    const instructor = machine.instruments.find(i => i.id === 'instructor');
+    if (instructor) {
+      instructor.language = instructorLanguage || undefined;
+      localStorage.setItem('beat-machine-instructor-lang', instructorLanguage);
+    }
+  }, [instructorLanguage, machine]);
 
   useEffect(() => {
     if (engine && machine) {
@@ -120,6 +138,23 @@ export const BeatMachineUIGlass = observer(({ machines }: IBeatMachineUIGlassPro
             >
               Merengue
             </GlassButton>
+          </div>
+
+          <div className={styles.languageSelect}>
+            <span className={styles.languageLabel}>🌐</span>
+            <select
+              value={instructorLanguage}
+              onChange={(e) => setInstructorLanguage(e.target.value)}
+              className={styles.languageDropdown}
+              title="Instructor Language"
+            >
+              <option value="">EN</option>
+              <option value="italian">IT</option>
+              <option value="spanish">ES</option>
+              <option value="french">FR</option>
+              <option value="russian">RU</option>
+              <option value="german">DE</option>
+            </select>
           </div>
         </div>
       </GlassContainer>
