@@ -15,8 +15,8 @@ export class AudioBackend {
   constructor(private baseUrl: string = '') {
     this.ready = false;
     const hasWebM = typeof MediaSource !== 'undefined' && MediaSource.isTypeSupported('audio/webm;codecs="vorbis"');
-    const audioPath = hasWebM ? '/assets/audio/main.webm' : '/assets/audio/main.mp3';
-    this.audioFormat = baseUrl ? `${baseUrl}/${audioPath}` : audioPath;
+    const audioPath = hasWebM ? 'assets/audio/main.webm' : 'assets/audio/main.mp3';
+    this.audioFormat = baseUrl ? `${baseUrl}/${audioPath}` : `/${audioPath}`;
     console.log('AudioBackend created - will load audio after init()');
   }
 
@@ -34,7 +34,7 @@ export class AudioBackend {
       try {
         await Promise.all([
           this.loadBank(this.audioFormat),
-          this.loadBankDescriptor('/assets/audio/main.json')
+          this.loadBankDescriptor('assets/audio/main.json')
         ]);
         console.log('✅ Audio files loaded successfully');
       } catch (error) {
@@ -75,8 +75,21 @@ export class AudioBackend {
 
   private async loadBankDescriptor(url: string) {
     try {
-      // Prepend base URL if configured
-      const fullUrl = this.baseUrl && !url.startsWith('http') ? `${this.baseUrl}/${url}` : url;
+      // Normalize URL construction
+      let fullUrl: string;
+      if (url.startsWith('http://') || url.startsWith('https://')) {
+        // Absolute URL, use as-is
+        fullUrl = url;
+      } else if (this.baseUrl) {
+        // BaseUrl set, construct full URL
+        const normalizedBase = this.baseUrl.endsWith('/') ? this.baseUrl.slice(0, -1) : this.baseUrl;
+        const normalizedPath = url.startsWith('/') ? url.slice(1) : url;
+        fullUrl = `${normalizedBase}/${normalizedPath}`;
+      } else {
+        // No baseUrl, ensure leading slash for absolute path
+        fullUrl = url.startsWith('/') ? url : `/${url}`;
+      }
+      
       console.log('Loading bank descriptor from:', fullUrl);
       const req = await fetch(fullUrl);
       if (!req.ok) {

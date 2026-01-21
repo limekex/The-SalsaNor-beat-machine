@@ -14,7 +14,7 @@ export default function Home({ machines }: IHomeProps) {
     <>
       <Head>
         <meta charSet="utf-8" />
-        <title>The SalsaNor SalsaBeat Machine 🎼🎹</title>
+        <title>SalsaNor Beat 🎼🎹</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
@@ -23,7 +23,7 @@ export default function Home({ machines }: IHomeProps) {
           name="description"
           content="Explore Salsa music with an interactive rhythm machine. Practice Salsa timing and train your ears. Combine and arrange instruments to create different salsa tunes."
         />
-        <meta property="og:title" content="The SalsaNor SalsaBeat Machine" />
+        <meta property="og:title" content="SalsaNor Beat" />
         <meta
           property="og:description"
           content="Explore Salsa music with an interactive rhythm machine. Practice Salsa timing and train your ears. Combine and arrange instruments to create different salsa tunes."
@@ -36,15 +36,20 @@ export default function Home({ machines }: IHomeProps) {
       </Head>
 
       <main className={styles.homepage}>
-        <h1 className={styles.title}>🎵 The SalsaNor Beat Machine</h1>
+        <h1 className={styles.title}>🎵 SalsaNor Beat</h1>
 
         <div className={styles.appContainer}>
           <BeatMachineUIGlass machines={machines} />
         </div>
 
-        <a href="/widget-generator" className={styles.widgetLink}>
-          🛠️ Widget Generator
-        </a>
+        <div className={styles.linkBar}>
+          <a href="/docs" className={styles.link}>
+            📚 Documentation
+          </a>
+          <a href="/widget-generator" className={styles.link}>
+            🛠️ Widget Generator
+          </a>
+        </div>
 
         <footer className={styles.footer}>
           <p>

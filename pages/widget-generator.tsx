@@ -24,7 +24,6 @@ export default function WidgetGenerator({ salsaInstruments, merengueInstruments 
   const [instrumentPrograms, setInstrumentPrograms] = useState<Record<string, number>>({});
   const [bpm, setBpm] = useState(120);
   const [autoplay, setAutoplay] = useState(false);
-  const [baseUrl, setBaseUrl] = useState('https://beat.salsanor.no');
   const [instructorLanguage, setInstructorLanguage] = useState<string>('');
   const [copied, setCopied] = useState(false);
 
@@ -105,10 +104,7 @@ export default function WidgetGenerator({ salsaInstruments, merengueInstruments 
 
     // Generate installation instructions with proper structure
     return `<!-- Add this code just below <body> tag (only once per page) -->
-<script>
-  window.BEAT_MACHINE_BASE_URL = "${baseUrl}";
-</script>
-<script src="${baseUrl}/widget.js?v=${Date.now()}"></script>
+<script src="https://beat.salsanor.no/widget.js"></script>
 
 <!-- Add widget(s) anywhere in your content -->
 ${widgetCode}`;
@@ -123,7 +119,7 @@ ${widgetCode}`;
   if (!salsaMachine || !merengueMachine) {
     return (
       <div className={styles.container}>
-        <div className={styles.loading}>🎵 Loading Beat Machine...</div>
+        <div className={styles.loading}>🎵 Loading SalsaNor Beat...</div>
       </div>
     );
   }
@@ -131,13 +127,19 @@ ${widgetCode}`;
   return (
     <>
       <Head>
-        <title>Beat Machine Widget Generator - SalsaNor</title>
-        <meta name="description" content="Generate code for Beat Machine Widget" />
+        <title>Widget Generator - SalsaNor Beat</title>
+        <meta name="description" content="Generate code for SalsaNor Beat Widget" />
       </Head>
 
       <div className={styles.container}>
+        <nav className={styles.nav}>
+          <a href="/" className={styles.navLink}>🏠 Main App</a>
+          <a href="/docs" className={styles.navLink}>📚 Documentation</a>
+          <a href="/widget-demo" className={styles.navLink}>🎬 Widget Demo</a>
+        </nav>
+
         <header className={styles.header}>
-          <h1>🎵 Beat Machine Widget Generator</h1>
+          <h1>🎵 SalsaNor Beat Widget Generator</h1>
           <p>Select instruments and settings, see live preview, and copy ready-to-use code.</p>
         </header>
 
@@ -269,20 +271,6 @@ ${widgetCode}`;
                 </p>
               </section>
             )}
-
-            <section className={styles.section}>
-              <h2>Base URL (for cross-domain)</h2>
-              <input
-                type="text"
-                value={baseUrl}
-                onChange={(e) => setBaseUrl(e.target.value)}
-                className={styles.textInput}
-                placeholder="https://beat.salsanor.no"
-              />
-              <p className={styles.help}>
-                URL to the server hosting the widget files and audio samples.
-              </p>
-            </section>
           </div>
 
           {/* Right Panel - Preview & Code */}

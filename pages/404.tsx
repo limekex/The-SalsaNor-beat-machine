@@ -6,7 +6,7 @@ export default function Error404() {
     <>
       <Head>
         <meta charSet="utf-8" />
-        <title>Not Found - The Salsa Beat Machine 🎼🎹</title>
+        <title>Not Found - SalsaNor Beat 🎼🎹</title>
 
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/x-icon" href="favicon.ico" />
@@ -16,7 +16,7 @@ export default function Error404() {
           name="description"
           content="Explore Salsa music with an interactive rhythm machine. Practice Salsa timing and train your ears. Combine and arrange instruments to create different salsa tunes."
         />
-        <meta property="og:title" content="The Salsa Beat Machine" />
+        <meta property="og:title" content="SalsaNor Beat" />
         <meta
           property="og:description"
           content="Explore Salsa music with an interactive rhythm machine. Practice Salsa timing and train your ears. Combine and arrange instruments to create different salsa tunes."
