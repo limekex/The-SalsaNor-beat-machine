@@ -64,7 +64,7 @@
   a {
     color: var(--color-golden);
     text-decoration: none;
-    
+
     &:hover {
       text-decoration: underline;
     }

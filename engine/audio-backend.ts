@@ -89,7 +89,7 @@ export class AudioBackend {
         // No baseUrl, ensure leading slash for absolute path
         fullUrl = url.startsWith('/') ? url : `/${url}`;
       }
-      
+
       console.log('Loading bank descriptor from:', fullUrl);
       const req = await fetch(fullUrl);
       if (!req.ok) {

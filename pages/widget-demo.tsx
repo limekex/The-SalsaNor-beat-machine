@@ -122,7 +122,7 @@ export default function WidgetDemo() {
             </p>
             <p style={textStyle}>Here's the code for inline embedding:</p>
             <pre style={preStyle}><code style={codeStyle}>{`<p>
-  Practice with this rhythm: 
+  Practice with this rhythm:
   <span style="display: inline-flex; vertical-align: middle;">
     <div data-beat-widget data-instruments="clave" data-bpm="100"></div>
   </span>
@@ -135,11 +135,11 @@ export default function WidgetDemo() {
             <h2 style={subtitleStyle}>📦 How to Use on Your Website</h2>
             <p style={textStyle}><strong>Step 1:</strong> Add this script tag to your HTML page (before closing &lt;/body&gt; tag):</p>
             <pre style={preStyle}><code style={codeStyle}>&lt;script src="https://beat.salsanor.no/widget.js"&gt;&lt;/script&gt;</code></pre>
-            
+
             <p style={textStyle}><strong>Step 2:</strong> Add the widget anywhere in your HTML:</p>
-            <pre style={preStyle}><code style={codeStyle}>{`<div 
-  data-beat-widget 
-  data-instruments="clave,cowbell" 
+            <pre style={preStyle}><code style={codeStyle}>{`<div
+  data-beat-widget
+  data-instruments="clave,cowbell"
   data-bpm="120"
 ></div>`}</code></pre>
 
@@ -158,15 +158,15 @@ export default function WidgetDemo() {
 </head>
 <body>
   <h1>Learn Salsa Timing</h1>
-  
+
   <!-- The widget -->
-  <div 
-    data-beat-widget 
-    data-instruments="clave,instructor" 
+  <div
+    data-beat-widget
+    data-instruments="clave,instructor"
     data-bpm="100"
     data-instructor-language="spanish"
   ></div>
-  
+
   <!-- Load the widget script -->
   <script src="https://beat.salsanor.no/widget.js"></script>
 </body>

@@ -121,7 +121,7 @@ export default function Docs() {
 <script src="https://beat.salsanor.no/widget.js"></script>
 
 <!-- Place the widget where you want it -->
-<div 
+<div
   data-beat-widget
   data-instruments="clave,cowbell"
   data-bpm="120"
@@ -204,8 +204,8 @@ export default function Docs() {
 
             <h3>Rhythm Patterns (Programs)</h3>
             <p>Many instruments have multiple rhythm patterns you can choose from using <code>data-programs</code>:</p>
-            <pre className={styles.code}><code>{`<div 
-  data-beat-widget 
+            <pre className={styles.code}><code>{`<div
+  data-beat-widget
   data-instruments="clave,cowbell"
   data-programs="clave:1,cowbell:0"
   data-bpm="120"
@@ -228,9 +228,9 @@ export default function Docs() {
   Here's a basic salsa clave rhythm you can practice along with:
 </p>
 
-<div 
-  data-beat-widget 
-  data-instruments="clave" 
+<div
+  data-beat-widget
+  data-instruments="clave"
   data-bpm="90"
 ></div>
 
@@ -242,19 +242,19 @@ export default function Docs() {
             <pre className={styles.code}><code>{`<div style="display: flex; gap: 20px;">
   <div>
     <h3>Slow Tempo</h3>
-    <div 
-      data-beat-widget 
-      data-instruments="clave,instructor" 
+    <div
+      data-beat-widget
+      data-instruments="clave,instructor"
       data-bpm="80"
       data-instructor-language="spanish"
     ></div>
   </div>
-  
+
   <div>
     <h3>Fast Tempo</h3>
-    <div 
-      data-beat-widget 
-      data-instruments="clave,instructor" 
+    <div
+      data-beat-widget
+      data-instruments="clave,instructor"
       data-bpm="160"
       data-instructor-language="spanish"
     ></div>
@@ -264,32 +264,32 @@ export default function Docs() {
             <h3>Example 3: Full Lesson Layout</h3>
             <pre className={styles.code}><code>{`<article>
   <h2>Lesson 1: Understanding the Clave</h2>
-  
+
   <section>
     <h3>Listen to the Pattern</h3>
-    <div 
-      data-beat-widget 
-      data-instruments="clave,instructor" 
+    <div
+      data-beat-widget
+      data-instruments="clave,instructor"
       data-bpm="100"
     ></div>
   </section>
-  
+
   <section>
     <h3>Add the Cowbell</h3>
     <p>Now let's layer the cowbell on top:</p>
-    <div 
-      data-beat-widget 
-      data-instruments="clave,cowbell,instructor" 
+    <div
+      data-beat-widget
+      data-instruments="clave,cowbell,instructor"
       data-bpm="100"
     ></div>
   </section>
-  
+
   <section>
     <h3>Full Rhythm</h3>
     <p>Here's the complete salsa rhythm:</p>
-    <div 
-      data-beat-widget 
-      data-instruments="clave,cowbell,bongo,timbales" 
+    <div
+      data-beat-widget
+      data-instruments="clave,cowbell,bongo,timbales"
       data-bpm="120"
     ></div>
   </section>
@@ -307,33 +307,33 @@ export default function Docs() {
           {/* Features */}
           <section id="features" className={styles.section}>
             <h2>✨ Features</h2>
-            
+
             <div className={styles.features}>
               <div className={styles.feature}>
                 <h3>🎯 Practice Mode</h3>
                 <p>Focus on specific instruments to learn patterns individually</p>
               </div>
-              
+
               <div className={styles.feature}>
                 <h3>🌍 Multilingual</h3>
                 <p>Instructor counts in 6 languages for international users</p>
               </div>
-              
+
               <div className={styles.feature}>
                 <h3>🎨 Customizable</h3>
                 <p>Choose instruments, tempo, and language for your needs</p>
               </div>
-              
+
               <div className={styles.feature}>
                 <h3>📱 Responsive</h3>
                 <p>Works perfectly on desktop, tablet, and mobile devices</p>
               </div>
-              
+
               <div className={styles.feature}>
                 <h3>🔊 High Quality Audio</h3>
                 <p>Professional samples for authentic Latin percussion sounds</p>
               </div>
-              
+
               <div className={styles.feature}>
                 <h3>⚡ Fast & Light</h3>
                 <p>Optimized performance with minimal loading time</p>
